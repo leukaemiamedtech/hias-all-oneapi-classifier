@@ -71,12 +71,25 @@ If you are going to be contributing code or documentation to the repository you 
 
 # Repository structure
 
+We have a specific way to manage projects which must be kept in mind when contributing to an existing project or creating a new one. Our goal is to ensure that our project/code structures remain familiar for our Gihub community and Association Volunteers.
+
+Below you will find the required files for a project repository:
+
 ```
 - Project Root (Directory)
+    - config (Directory) *
+        - config.json (File) *
+        - credentials.json (File) *
     - modules (Directory) *
+        - AbstractAgent.py (File) *
+        - AbstractData.py (File) *
+        - AbstractModel.py (File) *
+        - AbstractServer.py (File) *
         - helpers.py (File) *
         - data.py (File) *
         - model.py (File) *
+        - mqtt.py (File) *
+        - server.py (File) *
     - documentation (Directory)
         - installation (Directory)
             - Ubuntu
@@ -94,7 +107,9 @@ If you are going to be contributing code or documentation to the repository you 
     - scripts
         - install.sh (File)
     - agent.py (File)
-    - Project README (File)
+    - README.md (File)
+    - CONTRIBUTING.md (File)
+    - LICENSE (File)
 ```
 
 &nbsp;
