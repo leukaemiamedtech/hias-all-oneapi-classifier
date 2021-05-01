@@ -167,6 +167,8 @@ We use the [repo issues](issues "repo issues") to track bugs and general request
 
 The project README contributors should contain a list of all contributors in the entire repository.
 
+&nbsp;
+
 # Push changes to forked repository
 
 When you have made your changes, you need to push them to your forked repository. This process requires a commit with a message about what your commit is, and then finally a push to the repository which will place your changes or created files to your forked repository.
