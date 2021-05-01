@@ -16,7 +16,6 @@
   - [ALL-IDB](#all-idb)
     - [ALL_IDB1](#all_idb1)
 - [Acute Lymphoblastic Leukemia Tensorflow Classifier 2020](#acute-lymphoblastic-leukemia-tensorflow-classifier-2020)
-  - [Network Architecture](#network-architecture)
 - [Intel Technologies](#intel-technologies)
   - [Intel® oneAPI Toolkits (Beta)](#intel-oneapi-toolkits-beta)
   - [Intel® Distribution for Python](#intel-distribution-for-python)
@@ -73,7 +72,7 @@ In this project, [ALL-IDB1](https://homes.di.unimi.it/scotti/all/#datasets) is u
 
 # Acute Lymphoblastic Leukemia Tensorflow Classifier 2020
 
-The ALL Tensorflow 2020 model was trained and tested on a selection of different CPUs/GPUs, with the **Intel® Core™ i7-7700HQ CPU @ 2.80GHz × 8** and **Windows 10** providing the most optimal results.
+The Acute Lymphoblastic Leukemia Tensorflow Classifier 2020 network architecture is based on the proposed architecture in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper. The model was trained and tested on a selection of different CPUs/GPUs, with the **Intel® Core™ i7-7700HQ CPU @ 2.80GHz × 8** and **Windows 10** providing the most optimal results.
 
 | OS | Hardware | Training | Validation | Test | Accuracy | Recall | Precision | AUC/ROC |
 | -------------------- | -------------------- | -------------------- | ----- | ---------- | ---------- | ---------- | ---------- | ---------- |
@@ -85,12 +84,6 @@ The ALL Tensorflow 2020 model was trained and tested on a selection of different
 | macOS Mojave 10.14.6 | Intel® Core™ i5 CPU @ 2.4 GHz   | 1180 |  404 | 20 |  0.9589041 | 0.9589041 | 0.9589041 | 0.99483955 |
 
 Source: [Acute Lymphoblastic Leukemia Tensorflow Classifier 2020](https://github.com/AMLResearchProject/ALL-Tensorflow-2020#classifier)
-
-&nbsp;
-
-## Network Architecture
-
-The Acute Lymphoblastic Leukemia Tensorflow Classifier 2020 network architecture is based on the proposed architecture in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper.
 
 &nbsp;
 
