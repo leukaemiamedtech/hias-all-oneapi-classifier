@@ -15,7 +15,7 @@
 - [Acute Lymphoblastic Leukemia](#acute-lymphoblastic-leukemia)
   - [ALL-IDB](#all-idb)
     - [ALL_IDB1](#all_idb1)
-- [ALL Tensorflow 2020](#all-tensorflow-2020)
+- [Acute Lymphoblastic Leukemia Tensorflow Classifier 2020](#acute-lymphoblastic-leukemia-tensorflow-classifier-2020)
   - [Network Architecture](#network-architecture)
 - [Intel Technologies](#intel-technologies)
   - [Intel® oneAPI Toolkits (Beta)](#intel-oneapi-toolkits-beta)
@@ -23,6 +23,7 @@
   - [Intel® Optimization for TensorFlow](#intel-optimization-for-tensorflow)
   - [Intel® Distribution of OpenVINO™ Toolkit](#intel-distribution-of-openvino-toolkit)
   - [Intel® Movidius™ Neural Compute Stick 2](#intel-movidius-neural-compute-stick-2)
+- [Acute Lymphoblastic Leukemia oneAPI Classifier 2021](#acute-lymphoblastic-leukemia-oneapi-classifier-2021)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
 - [Versioning](#versioning)
@@ -70,9 +71,9 @@ In this project, [ALL-IDB1](https://homes.di.unimi.it/scotti/all/#datasets) is u
 
 &nbsp;
 
-# ALL Tensorflow 2020
+# Acute Lymphoblastic Leukemia Tensorflow Classifier 2020
 
-The ALL Tensorflow 2020 model was tested on different CPUs/GPUs, with the **Intel® Core™ i7-7700HQ CPU @ 2.80GHz × 8** and **Windows 10** providing the most optimal results.
+The ALL Tensorflow 2020 model was trained and tested on a selection of different CPUs/GPUs, with the **Intel® Core™ i7-7700HQ CPU @ 2.80GHz × 8** and **Windows 10** providing the most optimal results.
 
 | OS | Hardware | Training | Validation | Test | Accuracy | Recall | Precision | AUC/ROC |
 | -------------------- | -------------------- | -------------------- | ----- | ---------- | ---------- | ---------- | ---------- | ---------- |
@@ -83,13 +84,13 @@ The ALL Tensorflow 2020 model was tested on different CPUs/GPUs, with the **Inte
 | Windows 10 | Intel® Core™ i7-7700HQ CPU @ 2.80GHz × 8   | 1180 |  404 | 20 |  0.9851485 | 0.9851485 | 0.9851485 | 0.9985846 |
 | macOS Mojave 10.14.6 | Intel® Core™ i5 CPU @ 2.4 GHz   | 1180 |  404 | 20 |  0.9589041 | 0.9589041 | 0.9589041 | 0.99483955 |
 
-Source: [Acute Lymphoblastic Leukemia Tensorflow 2020](https://github.com/AMLResearchProject/ALL-Tensorflow-2020#classifier)
+Source: [Acute Lymphoblastic Leukemia Tensorflow Classifier 2020](https://github.com/AMLResearchProject/ALL-Tensorflow-2020#classifier)
 
 &nbsp;
 
 ## Network Architecture
 
-The Acute Lymphoblastic Leukemia Tensorflow 2020 network architecture is based on the proposed architecture in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper.
+The Acute Lymphoblastic Leukemia Tensorflow Classifier 2020 network architecture is based on the proposed architecture in the [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") paper.
 
 &nbsp;
 
@@ -114,6 +115,22 @@ The Acute Lymphoblastic Leukemia Tensorflow 2020 network architecture is based o
 
 [![Intel® Movidius™ Neural Compute Stick 2](Assets/Images/Movidius-NCS2.jpg)](https://software.intel.com/content/www/us/en/develop/hardware/neural-compute-stick.html)
 The [Intel® Movidius™ Neural Compute Stick 2](https://software.intel.com/content/www/us/en/develop/hardware/neural-compute-stick.html) is a USB plug & play AI device for deep learning inference at the edge. Combined with the Intel® OpenVINO™ Toolkit, developers can develop, fine-tune, and deploy convolutional neural networks (CNNs) on low-power applications that require real-time inference.
+
+&nbsp;
+
+# Acute Lymphoblastic Leukemia oneAPI Classifier 2021
+
+To create the newly improved **Acute Lymphoblastic Leukemia oneAPI Classifier 2021** we will take the following steps:
+
+- Use the data augmentation techniques proposed in [the Leukemia Blood Cell Image Classification Using Convolutional Neural Network by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon](http://www.ijcte.org/vol10/1198-H0012.pdf).
+
+- Install [Intel® Optimization for TensorFlow*](https://software.intel.com/content/www/us/en/develop/articles/intel-optimization-for-tensorflow-installation-guide.html) on our training device. In the case of this tutorial, a Linux machine with an NVIDIA GTX 1050 Ti was used for training.
+
+- Install [Intel® Distribution of OpenVINO™ Toolkit](https://software.intel.com/content/www/us/en/develop/tools/openvino-toolkit.html) on our inference device.  In the case of this tutorial, the model is deployed to a Raspberry Pi 4 for inference.
+
+- Train a model based on the architecture proposed in [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") using ALL_IDB1 from the [Acute Lymphoblastic Leukemia Image Database for Image Processing dataset](https://homes.di.unimi.it/scotti/all/#download).
+
+- Test the model using commandline and classify unseen data using HTTP requests to a local API endpoint and via the HIAS network.
 
 &nbsp;
 
