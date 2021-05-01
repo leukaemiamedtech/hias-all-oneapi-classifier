@@ -1,8 +1,7 @@
 # Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss
 ## Contributing To Our Projects
 
-![Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss](Assets/Images/all-oneapi-classifier-2020.png)
-
+&nbsp;
 
 The Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss encourages and welcomes code contributions, bug fixes and enhancements from the Github community.
 
@@ -18,6 +17,20 @@ The following is a guide on how to contribute to Asociación de Investigacion en
     - [Feature proposals](#feature-proposals)
 - [Creating a fork of the repository](#creating-a-fork-of-the-repository)
 - [Repository structure](#repository-structure)
+- [Documentation](#documentation)
+- [Installation Scripts](#documentation)
+- [Naming](#documentation)
+- [Attribution](#documentation)
+- [.md Files](#documentation)
+- [Push changes to forked repository](#documentation)
+- [Pull requests](#documentation)
+- [Pull requests process](#documentation)
+- [Code of conduct](#documentation)
+    - [Our pledge](#documentation)
+    - [Our standards](#documentation)
+    - [Our responsibilities](#documentation)
+
+
 
 &nbsp;
 
@@ -25,11 +38,11 @@ The following is a guide on how to contribute to Asociación de Investigacion en
 
 The first step is to head to our repository issues tab and decide how you would like to contribute.
 
-![Repository Issues](Assets/Images/repo-issues.png)
+![Repository Issues](assets/Images/repo-issues.png)
 
 ## Bug reports
 
-![Bug Reports](Assets/Images/bug-report.png)
+![Bug Reports](assets/Images/bug-report.png)
 
 If you would like to contribute bug fixes or make the team aware of bugs you have identified in the project, please raise a **Bug report** issue in the [issues section](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your bug report / bug fix(es) which will be reviewed by the team.
 
@@ -37,13 +50,13 @@ Bug fix issues are the first step to creating a pull request for bug fixes, once
 
 ## Feature requests
 
-![Bug Reports](Assets/Images/feature-request.png)
+![Bug Reports](assets/Images/feature-request.png)
 
 If you would like to suggest a new feature/new features for this project, please raise a **Feature request** issue in the [issues section](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your feature request.
 
 ## Feature proposals
 
-![Bug Reports](Assets/Images/feature-proposals.png)
+![Bug Reports](assets/Images/feature-proposals.png)
 
 If you would like to contribute new features to the project, please raise a **Feature proposal** issue in the [issues section](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your feature proposal.
 
@@ -51,7 +64,7 @@ If you would like to contribute new features to the project, please raise a **Fe
 
 # Creating a fork of the repository
 
-![Creating a fork of the repository](Assets/Images/fork.png)
+![Creating a fork of the repository](assets/Images/fork.png)
 If you are going to be contributing code or documentation to the repository you will need to make a fork of the current development branch. The current development branch will always be the highest branch or master. Once you have created a fork of the repository, you will be able to clone the repository to a location on your development machine using terminal and Git or Github Desktop if using Windows.
 
 &nbsp;
@@ -65,7 +78,10 @@ If you are going to be contributing code or documentation to the repository you 
         - data.py (File) *
         - model.py (File) *
     - documentation (Directory)
-        - installation
+        - installation (Directory)
+            - Ubuntu
+            - Windows
+            - Raspberry Pi OS
     - logs (Directory)
         - logfiles
     - assets
@@ -81,9 +97,7 @@ If you are going to be contributing code or documentation to the repository you 
     - Project README (File)
 ```
 
-## Project root directory
-
-
+&nbsp;
 
 # Documentation
 
@@ -115,17 +129,15 @@ Each .md file in the repository should use the same header. An example of this i
 
 ```
 # Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss
+## Acute Lymphoblastic Leukemia oneAPI Classifier
 
-## Acute Lymphoblastic Leukemia Detection System 2020
-
-[![CURRENT RELEASE](https://img.shields.io/badge/CURRENT%20RELEASE-0.2.0-blue.svg)](https://github.com/AMLResearchProject/ALL-Detection-System-2020/tree/0.2.0) [![UPCOMING RELEASE](https://img.shields.io/badge/CURRENT%20DEV%20BRANCH-0.3.0-blue.svg)](https://github.com/AMLResearchProject/ALL-Detection-System-2020/tree/0.3.0)
-
-![Acute Lymphoblastic Leukemia Detection System 2020](Assets/Images/AllVrCNN.jpg)
-
-&nbsp;
+![Acute Lymphoblastic Leukemia oneAPI Classifier](assets/Images/all-oneapi-classifier-2020.png)
 ```
+If the .md file is the README  in the project root, it should including the following markdown, ensuring the repository URLS and versions are correct.
 
-Each .md file in the repository should also use the same footer, with the excpetions of the contributors. If you contribute directly to the code or documentation you should update this area with your details.
+```
+[![CURRENT RELEASE](https://img.shields.io/badge/CURRENT%20RELEASE-0.0.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/0.0.0) [![UPCOMING RELEASE](https://img.shields.io/badge/CURRENT%20DEV%20BRANCH-0.1.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/0.1.0) [![Contributions Welcome!](https://img.shields.io/badge/Contributions-Welcome-lightgrey.svg)](CONTRIBUTING.md)  [![Issues](https://img.shields.io/badge/Issues-Welcome-lightgrey.svg)](issues) [![LICENSE](https://img.shields.io/badge/LICENSE-MIT-blue.svg)](LICENSE)
+```
 
 ```
 
@@ -195,7 +207,6 @@ You can also Github Desktop if on Windows as shown in the image above.
 
 # Pull requests
 
-![Pull requests](Assets/Images/Contributing-Pull-Requests.jpg)
 When you are satisfied with your changes you can submit a pull request that will request that your changes be pulled into the latest development branch.
 
 ## Pull Request Process
