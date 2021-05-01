@@ -128,7 +128,7 @@ To create the newly improved **Acute Lymphoblastic Leukemia oneAPI Classifier 20
 &nbsp;
 
 # Contributing
-The Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss encourages and welcomes code contributions, bug fixes and enhancements from the Github.
+The Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss encourages and welcomes code contributions, bug fixes and enhancements from the Github community.
 
 Please read the [CONTRIBUTING](CONTRIBUTING.md "CONTRIBUTING") document for a full guide to forking our repositories and submitting your pull requests. You will also find information about our code of conduct on this page.
 
@@ -143,7 +143,7 @@ We use SemVer for versioning.
 &nbsp;
 
 # License
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE.md "LICENSE") file for details.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE "LICENSE") file for details.
 
 &nbsp;
 
