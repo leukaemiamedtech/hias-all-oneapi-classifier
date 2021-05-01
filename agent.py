@@ -37,7 +37,9 @@ import sys
 from abc import ABC, abstractmethod
 
 from modules.AbstractAgent import AbstractAgent
+
 from modules.helpers import helpers
+from modules.model import model
 
 
 class agent(AbstractAgent):
@@ -51,6 +53,9 @@ class agent(AbstractAgent):
 		""" Creates & trains the model. """
 
 		self.mqtt_start()
+
+		self.model = model(self.helpers)
+		self.model.prepare()
 
 	def load_model(self):
 		""" Loads the trained model """

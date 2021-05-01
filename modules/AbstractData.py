@@ -27,6 +27,12 @@ Contributors:
 
 """
 
+import os
+import pathlib
+import random
+
+from numpy.random import seed
+
 from abc import ABC, abstractmethod
 
 class AbstractData(ABC):
@@ -43,8 +49,8 @@ class AbstractData(ABC):
 		self.helpers = helpers
 		self.confs = self.helpers.confs
 
-		self.seed = self.Helpers.confs["data"]["seed"]
-		self.dim = self.Helpers.confs["data"]["dim"]
+		self.seed = self.helpers.confs["data"]["seed"]
+		self.dim = self.helpers.confs["data"]["dim"]
 
 		seed(self.seed)
 		random.seed(self.seed)
@@ -52,11 +58,22 @@ class AbstractData(ABC):
 		self.data = []
 		self.labels = []
 
+		self.remove_testing()
+
 		self.helpers.logger.info("Data class initialization complete.")
 
+	def remove_testing(self):
+		""" Removes the testing images from the dataset. """
+
+		for img in self.helpers.confs["data"]["test_data"]:
+			original = "model/data/train/"+img
+			destination = "model/data/test/"+img
+			pathlib.Path(original).rename(destination)
+			self.helpers.logger.info(original + " moved to " + destination)
+
 	@abstractmethod
-	def pre_process_data(self, img):
-		""" Processes the image. """
+	def pre_process(self):
+		""" Processes the images. """
 		pass
 
 	@abstractmethod

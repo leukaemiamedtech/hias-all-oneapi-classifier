@@ -33,7 +33,6 @@ from PIL import Image
 
 from modules.AbstractData import AbstractData
 
-
 class data(AbstractData):
 	""" HIAS AI Model Data Class.
 
@@ -41,9 +40,8 @@ class data(AbstractData):
 	processing functionality.
 	"""
 
-	def pre_process_data(self, img):
+	def pre_process(self, img):
 		""" Processes the image. """
-		pass
 
 	def encode_labels(self):
 		""" One Hot Encodes the labels. """
