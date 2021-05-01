@@ -130,19 +130,19 @@ class mqtt():
 
 		if topic == 'Commands':
 			if self.commandsCallback == None:
-			self.helpers.logger.info(
+				self.helpers.logger.info(
 							connType + " comands callback required (commandsCallback) !")
 			else:
 				self.commandsCallback(msg.topic, msg.payload)
 
 	def publish(self, channel, data):
 
-	channel = '%s/Agents/%s/%s/%s' % (self.configs['location'],
-								   self.configs['zone'], self.configs['entity'], channel)
+		channel = '%s/Agents/%s/%s/%s' % (self.configs['location'],
+			self.configs['zone'], self.configs['entity'], channel)
 
-	self.mClient.publish(channel, json.dumps(data))
-	self.helpers.logger.info("Published to " + channel)
-	return True
+		self.mClient.publish(channel, json.dumps(data))
+		self.helpers.logger.info("Published to " + channel)
+		return True
 
 	def subscribe(self, application=None, channelID=None, qos=0):
 
