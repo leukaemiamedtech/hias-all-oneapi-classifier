@@ -27,13 +27,13 @@ Contributors:
 
 """
 
-import os
 import pathlib
 import random
 
 from numpy.random import seed
 
 from abc import ABC, abstractmethod
+
 
 class AbstractData(ABC):
 	""" HIAS AI Model Data Abstract Class.
@@ -100,3 +100,9 @@ class AbstractData(ABC):
 	def reshape(self, img):
 		""" Processes the image. """
 		pass
+
+	@abstractmethod
+	def resize(self, path, dim):
+		""" Resizes an image to the provided dimensions (dim). """
+
+		return cv2.resize(cv2.imread(path), (dim, dim))
