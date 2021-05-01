@@ -27,10 +27,16 @@ Contributors:
 
 """
 
+import psutil
+import requests
+import threading
+
 from abc import ABC, abstractmethod
 
 from modules.helpers import helpers
 from modules.mqtt import mqtt
+
+from threading import Thread
 
 
 class AbstractAgent(ABC):
@@ -63,21 +69,22 @@ class AbstractAgent(ABC):
 		self.helpers.logger.info("Agent initialization complete.")
 
 	def mqtt_conn(self, credentials):
-		""" Initializes the HIAS MongoDB Database connection and subscribes
-		to HIAS iotJumpWay topics. """
+		""" Starts the HIAS iotJumpWay MQTT broker connection. """
 
 		self.mqtt = mqtt(self.helpers, "Agent", credentials)
 		self.mqtt.configure()
 		self.mqtt.start()
 
 		self.mqtt.subscribe()
+		self.mqtt.commands_callback = self.mqtt_commands
 
-		self.mqtt.commands_callback = self.commands_callback
+		self.agent_threading()
 
 		self.helpers.logger.info(
 			"HIAS iotJumpWay MQTT Broker connection created and subscriptions created.")
 
 	def mqtt_start(self):
+		""" Starts the HIAS iotJumpWay MQTT broker connection. """
 
 		self.mqtt_conn({
 			"host": self.credentials["iotJumpWay"]["host"],
@@ -89,6 +96,9 @@ class AbstractAgent(ABC):
 			"un": self.credentials["iotJumpWay"]["un"],
 			"up": self.credentials["iotJumpWay"]["up"]
 		})
+
+	def mqtt_commands(self):
+		""" Called in the event of a command message from the HIAS iotJumpWay MQTT broker. """
 
 	def life(self):
 		""" Publishes entity statistics to HIAS. """
@@ -114,7 +124,7 @@ class AbstractAgent(ABC):
 		self.helpers.logger.info("Agent life statistics published.")
 		threading.Timer(300.0, self.life).start()
 
-	def threading(self):
+	def agent_threading(self):
 		""" Creates required module threads. """
 
 		# Life thread

@@ -49,7 +49,8 @@ class agent(AbstractAgent):
 
 	def train(self):
 		""" Creates & trains the model. """
-		pass
+
+		self.mqtt_start()
 
 	def load_model(self):
 		""" Loads the trained model """
@@ -70,6 +71,11 @@ class agent(AbstractAgent):
 	def start(self, mode):
 		"""Starts the AI Agent """
 		pass
+
+	def signal_handler(self, signal, frame):
+		self.helpers.logger.info("Disconnecting")
+		self.mqtt.disconnect()
+		sys.exit(1)
 
 
 agent = agent()

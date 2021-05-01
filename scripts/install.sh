@@ -3,6 +3,7 @@
 echo "-- Installing requirements"
 echo " "
 conda install opencv
+conda install psutil
 conda install requests
 conda install flask
 conda install matplotlib
