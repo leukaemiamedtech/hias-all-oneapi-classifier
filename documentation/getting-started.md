@@ -11,8 +11,8 @@
 - [Introduction](#introduction)
 - [Installation](#installation)
 - [Data](#data)
+	- [Application testing data](#application-testing-data)
 	- [Data Agumentation](#data-augmentation)
-	- [Additional testing data](#additional-testing-data)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
 - [Versioning](#versioning)
@@ -27,49 +27,57 @@ This guide will guide you through the installation process for the Acute Lymphob
 &nbsp;
 
 # Installation
-Follow the [installation guide](Documentation/Installation.md) to install the requirements for this project.
+Follow the [installation guide](Documentation/Installation.md) to install the software requirements for this project.
 
 &nbsp;
 
 # Data
-You need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php). If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset.
+You need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php).
 
-Once you have your data you need to add it to the project filesystem. You will notice the data folder in the Model directory, **model/data**, inside you have **train** & **test**.
+_If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset._
+
+Once you have your data you need to add it to the project filesystem. You will notice the data folder in the Model directory, **model/data**, inside you have **train** & **test**. Add all of the images from the ALL_IDB1 dataset to the **model/data/train** folder.
+
+## Application testing data
+
+In data processing stage, ten negative images and ten positive images are removed from the dataset and moved to the **model/data/test/** directory. This data is not seen by the network during the training process, and is used by applications.
+
+To ensure your model gets the same results, please use the same test images. By default HIAS compatible projects will be expecting the same test images.  You can also try with your own image selection, however results may vary and you will need to make additional changes to our HIAS compatible projects.
+
+To specify which test images to use modify the [configuration/config.json](configuration/config.json) file as shown below:
+
+```
+"test_data": [
+	"im006_1.jpg",
+	"im020_1.jpg",
+	"im024_1.jpg",
+	"im026_1.jpg",
+	"im028_1.jpg",
+	"im031_1.jpg",
+	"im035_0.jpg",
+	"im041_0.jpg",
+	"im047_0.jpg",
+	"im053_1.jpg",
+	"im057_1.jpg",
+	"im060_1.jpg",
+	"im063_1.jpg",
+	"im069_0.jpg",
+	"im074_0.jpg",
+	"im088_0.jpg",
+	"im095_0.jpg",
+	"im099_0.jpg",
+	"im101_0.jpg",
+	"im106_0.jpg"
+],
+```
+
+&nbsp;
 
 ## Data Augmentation
 
 You will create an augmented dataset based on the [Leukemia Blood Cell Image Classification Using Convolutional Neural Network](http://www.ijcte.org/vol10/1198-H0012.pdf "Leukemia Blood Cell Image Classification Using Convolutional Neural Network") by T. T. P. Thanh, Caleb Vununu, Sukhrob Atoev, Suk-Hwan Lee, and Ki-Ryong Kwon. In this case, you will use more rotated images to increase the dataset further.
 
-## Additional testing data
-
-Take the ten positive and ten negative samples shown below, and place them in the **model/data/test** directory. This will be used for testing the model, and also in our detection systems if you use this model with them.
-
-To ensure you get the same results, please use the same test images, these same test images are used in our detection systems also. You can also try with your own image selction, however results may vary.
-
-- im006_1.jpg
-- im020_1.jpg
-- im024_1.jpg
-- im026_1.jpg
-- im028_1.jpg
-- im031_1.jpg
-- im035_0.jpg
-- im041_0.jpg
-- im047_0.jpg
-- im053_1.jpg
-- im057_1.jpg
-- im060_1.jpg
-- im063_1.jpg
-- im069_0.jpg
-- im074_0.jpg
-- im088_0.jpg
-- im095_0.jpg
-- im099_0.jpg
-- im101_0.jpg
-- im106_0.jpg
-
-Next add the remaining 88 images to the **model/data/train** folder. The test images used will not be augmented and will not be used during model training.
-
-&nbsp;
+##
 
 # Contributing
 
