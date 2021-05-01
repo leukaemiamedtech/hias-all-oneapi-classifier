@@ -1,7 +1,7 @@
 # Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss
 ## Acute Lymphoblastic Leukemia oneAPI Classifier
 
-![Acute Lymphoblastic Leukemia oneAPI Classifier](assets/Images/all-oneapi-classifier-2020.png)
+![Acute Lymphoblastic Leukemia oneAPI Classifier](assets/images/all-oneapi-classifier-2020.png)
 
 [![CURRENT RELEASE](https://img.shields.io/badge/CURRENT%20RELEASE-0.0.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/0.0.0) [![UPCOMING RELEASE](https://img.shields.io/badge/CURRENT%20DEV%20BRANCH-0.1.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/0.1.0) [![Contributions Welcome!](https://img.shields.io/badge/Contributions-Welcome-lightgrey.svg)](CONTRIBUTING.md)  [![Issues](https://img.shields.io/badge/Issues-Welcome-lightgrey.svg)](issues) [![LICENSE](https://img.shields.io/badge/LICENSE-MIT-blue.svg)](LICENSE)
 
@@ -90,23 +90,23 @@ Source: [Acute Lymphoblastic Leukemia Tensorflow Classifier 2020](https://github
 # Intel Technologies
 
 ## Intel® oneAPI Toolkits (Beta)
-![Intel® oneAPI Toolkits (Beta)](assets/Images/intel-oneapi-toolkits.jpg)
+![Intel® oneAPI Toolkits (Beta)](assets/images/intel-oneapi-toolkits.jpg)
 [Intel® oneAPI Toolkits](https://software.intel.com/content/www/us/en/develop/tools/oneapi.html) are a collection of toolkits that provide the tools to optimize training and running inference on Artificial Intelligence models, maximizing the use of Intel architecture, including CPU, GPU, VPU and FPGA.
 
 ## Intel® Distribution for Python
-![Intel® Distribution for Python](assets/Images/intel-distribution-for-python.jpg)
+![Intel® Distribution for Python](assets/images/intel-distribution-for-python.jpg)
 [Intel® Distribution for Python](https://software.intel.com/content/www/us/en/develop/tools/distribution-for-python.html) enhances standard Python and helps to speed up popular AI packages such as Numpy, SciPy and Scikit-Learn.
 
 ## Intel® Optimization for TensorFlow
 [Intel® Optimization for TensorFlow](https://software.intel.com/content/www/us/en/develop/articles/intel-optimization-for-tensorflow-installation-guide.html) optimizes the popular Tensorflow framework using Intel® Math Kernel Library for Deep Neural Networks (Intel® MKL-DNN). Intel® MKL-DNN is an open-source library for enhancing performance by accelerating deep learning libraries such as Tensorflow on Intel architecture.
 
 ## Intel® Distribution of OpenVINO™ Toolkit
-![Intel® Distribution of OpenVINO™ Toolkit](assets/Images/intel-openvino.jpg)
+![Intel® Distribution of OpenVINO™ Toolkit](assets/images/intel-openvino.jpg)
 [Intel® Distribution of OpenVINO™ Toolkit](https://software.intel.com/content/www/us/en/develop/tools/openvino-toolkit.html) is based on Convolutional Neural Networks and optimizes models used on Intel CPUs/GPUs, VPUs, FPGA etc. Models are converted to [Interassetste Representations (IR)](https://docs.openvinotoolkit.org/latest/openvino_docs_MO_DG_IR_and_opsets.html) which allow them to be used with the [Inference Engine](https://docs.openvinotoolkit.org/2020.2/_docs_IE_DG_Deep_Learning_Inference_Engine_DevGuide.html).
 
 ## Intel® Movidius™ Neural Compute Stick 2
 
-[![Intel® Movidius™ Neural Compute Stick 2](assets/Images/Movidius-NCS2.jpg)](https://software.intel.com/content/www/us/en/develop/hardware/neural-compute-stick.html)
+[![Intel® Movidius™ Neural Compute Stick 2](assets/images/Movidius-NCS2.jpg)](https://software.intel.com/content/www/us/en/develop/hardware/neural-compute-stick.html)
 The [Intel® Movidius™ Neural Compute Stick 2](https://software.intel.com/content/www/us/en/develop/hardware/neural-compute-stick.html) is a USB plug & play AI device for deep learning inference at the edge. Combined with the Intel® OpenVINO™ Toolkit, developers can develop, fine-tune, and deploy convolutional neural networks (CNNs) on low-power applications that require real-time inference.
 
 &nbsp;
