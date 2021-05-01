@@ -38,11 +38,11 @@ The following is a guide on how to contribute to Asociación de Investigacion en
 
 The first step is to head to our repository issues tab and decide how you would like to contribute.
 
-![Repository Issues](assets/Images/repo-issues.png)
+![Repository Issues](assets/images/repo-issues.png)
 
 ## Bug reports
 
-![Bug Reports](assets/Images/bug-report.png)
+![Bug Reports](assets/images/bug-report.png)
 
 If you would like to contribute bug fixes or make the team aware of bugs you have identified in the project, please raise a **Bug report** issue in the [issues section](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your bug report / bug fix(es) which will be reviewed by the team.
 
@@ -50,13 +50,13 @@ Bug fix issues are the first step to creating a pull request for bug fixes, once
 
 ## Feature requests
 
-![Bug Reports](assets/Images/feature-request.png)
+![Bug Reports](assets/images/feature-request.png)
 
 If you would like to suggest a new feature/new features for this project, please raise a **Feature request** issue in the [issues section](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your feature request.
 
 ## Feature proposals
 
-![Bug Reports](assets/Images/feature-proposals.png)
+![Bug Reports](assets/images/feature-proposals.png)
 
 If you would like to contribute new features to the project, please raise a **Feature proposal** issue in the [issues section](issues/new/choose) section. A template is provided that will allow you to provide your suggestions for your feature proposal.
 
@@ -64,7 +64,7 @@ If you would like to contribute new features to the project, please raise a **Fe
 
 # Creating a fork of the repository
 
-![Creating a fork of the repository](assets/Images/fork.png)
+![Creating a fork of the repository](assets/images/fork.png)
 If you are going to be contributing code or documentation to the repository you will need to make a fork of the current development branch. The current development branch will always be the highest branch or master. Once you have created a fork of the repository, you will be able to clone the repository to a location on your development machine using terminal and Git or Github Desktop if using Windows.
 
 &nbsp;
@@ -131,7 +131,7 @@ Each .md file in the repository should use the same header. An example of this i
 # Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss
 ## Acute Lymphoblastic Leukemia oneAPI Classifier
 
-![Acute Lymphoblastic Leukemia oneAPI Classifier](assets/Images/all-oneapi-classifier-2020.png)
+![Acute Lymphoblastic Leukemia oneAPI Classifier](assets/images/all-oneapi-classifier-2020.png)
 ```
 If the .md file is the README  in the project root, it should including the following markdown, ensuring the repository URLS and versions are correct.
 
