@@ -97,12 +97,6 @@ class AbstractData(ABC):
 		pass
 
 	@abstractmethod
-	def reshape(self, img):
-		""" Processes the image. """
-		pass
-
-	@abstractmethod
 	def resize(self, path, dim):
 		""" Resizes an image to the provided dimensions (dim). """
-
-		return cv2.resize(cv2.imread(path), (dim, dim))
+		pass

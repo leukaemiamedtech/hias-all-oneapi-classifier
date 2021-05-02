@@ -121,6 +121,8 @@ class data(AbstractData):
 		self.helpers.logger.info("Augmented data: " + str(self.data.shape))
 		self.helpers.logger.info("Labels: " + str(self.labels.shape))
 
+		self.get_split()
+
 	def convert_data(self):
 		""" Converts the training data to a numpy array. """
 
@@ -152,10 +154,6 @@ class data(AbstractData):
 		self.helpers.logger.info("Training labels: " + str(self.y_train.shape))
 		self.helpers.logger.info("Validation data: " + str(self.X_test.shape))
 		self.helpers.logger.info("Validation labels: " + str(self.y_test.shape))
-
-	def reshape(self, img):
-		""" Processes the image. """
-		pass
 
 	def resize(self, path, dim):
 		""" Resizes an image to the provided dimensions (dim). """

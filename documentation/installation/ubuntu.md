@@ -15,6 +15,7 @@
 	- [Intel® Optimization for TensorFlow](#intel-optimization-for-tensorflow)
 	- [Intel® Distribution of OpenVINO™ Toolkit](#intel-distribution-of-openvino-toolkit)
 	- [Clone The Repository](#clone-the-repository)
+		- [Developer Forks](#developer-forks)
 	- [Setup File](#setup-file)
 	- [Continue](#continue)
 - [Contributing](#contributing)
@@ -32,6 +33,9 @@ You will need to ensure you have the following prerequisites installed and setup
 ## Anaconda
 If you haven't already installed Anaconda you will need to install it now. Follow the [Anaconda installation guide](https://docs.anaconda.com/anaconda/install/ "Anaconda installation guide") to do so.
 
+### HIAS Server
+For this project you will need a functioning [HIAS Server](https://github.com/LeukemiaAiResearch/HIAS). To install the HIAS Server, follow the [HIAS Server Installation Guide](https://github.com/LeukemiaAiResearch/HIAS/blob/master/Documentation/Installation/Installation.md)
+
 # Installation
 You are now ready to install the Acute Lymphoblastic Leukemia oneAPI Classifier software.
 
@@ -41,13 +45,19 @@ Now you will install the Intel® Optimization for TensorFlow using Anaconda.
 ```
 conda create -n all-tfmkl python=3
 conda activate all-tfmkl
-conda install tensorflow-mkl
+conda install tensorflow -c anaconda
 conda deactivate
 ```
 
 ## Intel® Distribution of OpenVINO™ Toolkit
-To install Intel® Distribution of OpenVINO™ Toolkit, follow [this tutorial](https://docs.openvinotoolkit.org/latest/openvino_docs_install_guides_installing_openvino_windows.html)
+Now you will install Intel® Distribution of OpenVINO™ Toolkit which will be used to convert your frozen model into an Intermediate Representation.
 
+```
+wget https://apt.repos.intel.com/openvino/2021/GPG-PUB-KEY-INTEL-OPENVINO-2021
+echo "deb https://apt.repos.intel.com/openvino/2021 all main" | sudo tee /etc/apt/sources.list.d/intel-openvino-2021.list
+sudo apt update
+sudo apt install intel-openvino-runtime-ubuntu18-2021.1.110
+```
 ## Clone the repository
 
 Clone the [Acute Lymphoblastic Leukemia oneAPI Classifier](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier " Acute Lymphoblastic Leukemia oneAPI Classifier") repository from the [Peter Moss Acute Myeloid & Lymphoblastic Leukemia AI Research Project](https://github.com/AIIAL "Asociación de Investigacion en Inteligencia Artificial Para la Leucemia Peter Moss") Github Organization.
@@ -77,10 +87,10 @@ Navigate to the **Acute-Lymphoblastic-Leukemia-oneAPI-Classifier** directory, th
 Developers from the Github community that would like to contribute to the development of this project should first create a fork, and clone that repository. For detailed information please view the [CONTRIBUTING](../../CONTRIBUTING.md "CONTRIBUTING") guide. You should pull the latest code from the development branch.
 
 ```
- git clone -b "0.2.0" https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier.git
+ git clone -b "1.1.0" https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier.git
 ```
 
-The **-b "0.2.0"** parameter ensures you get the code from the latest master branch. Before using the below command please check our latest master branch in the button at the top of the project README.
+The **-b "1.1.0"** parameter ensures you get the code from the latest master branch. Before using the below command please check our latest master branch in the button at the top of the project README.
 
 ## Setup File
 
