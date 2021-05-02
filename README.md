@@ -3,7 +3,7 @@
 
 ![Acute Lymphoblastic Leukemia oneAPI Classifier](assets/images/all-oneapi-classifier-2020.png)
 
-[![CURRENT RELEASE](https://img.shields.io/badge/CURRENT%20RELEASE-0.1.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/0.1.0) [![UPCOMING RELEASE](https://img.shields.io/badge/CURRENT%20DEV%20BRANCH-0.2.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/0.2.0) [![Contributions Welcome!](https://img.shields.io/badge/Contributions-Welcome-lightgrey.svg)](CONTRIBUTING.md)  [![Issues](https://img.shields.io/badge/Issues-Welcome-lightgrey.svg)](issues) [![LICENSE](https://img.shields.io/badge/LICENSE-MIT-blue.svg)](LICENSE)
+[![CURRENT RELEASE](https://img.shields.io/badge/CURRENT%20RELEASE-1.0.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/1.0.0) [![UPCOMING RELEASE](https://img.shields.io/badge/CURRENT%20DEV%20BRANCH-1.1.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/1.1.0) [![Contributions Welcome!](https://img.shields.io/badge/Contributions-Welcome-lightgrey.svg)](CONTRIBUTING.md)  [![Issues](https://img.shields.io/badge/Issues-Welcome-lightgrey.svg)](issues) [![LICENSE](https://img.shields.io/badge/LICENSE-MIT-blue.svg)](LICENSE)
 
 &nbsp;
 
@@ -23,6 +23,7 @@
   - [Intel® Distribution of OpenVINO™ Toolkit](#intel-distribution-of-openvino-toolkit)
   - [Intel® Movidius™ Neural Compute Stick 2](#intel-movidius-neural-compute-stick-2)
 - [Acute Lymphoblastic Leukemia oneAPI Classifier 2021](#acute-lymphoblastic-leukemia-oneapi-classifier-2021)
+  - [GETTING STARTED](#getting-started)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
 - [Versioning](#versioning)
@@ -56,7 +57,9 @@ The goal is to create an improved computer vision model that was capable of dete
 &nbsp;
 
 # Acute Lymphoblastic Leukemia
-Acute Lymphoblastic Leukemia (ALL), also known as Acute Lymphocytic Leukemia, is a cancer that affects the Lymphoid blood cell lineage. Unlike AML, ALL only affects the white blood cells, namely, Lymphocytes. Lymphocytes include B Cells, T Cells and NK (Natural Killer) cells. ALL is caused by Lymphoid Blasts, or Lymphoblasts, developing into immature Lymphocytes, and an abnormal amount of these immature Lymphocytes are produced. Lymphocytes are white blood cells and play a very important role in the immune system helping to fight off diseases. [More info](https://www.leukemiaresearchassociation.ai/leukemia).
+Acute Lymphoblastic Leukemia (ALL), also known as Acute Lymphocytic Leukemia, is a cancer that affects the Lymphoid blood cell lineage. Unlike AML, ALL only affects the white blood cells, namely, Lymphocytes. Lymphocytes include B Cells, T Cells and NK (Natural Killer) cells. ALL is caused by Lymphoid Blasts, or Lymphoblasts, developing into immature Lymphocytes, and an abnormal amount of these immature Lymphocytes are produced. Lymphocytes are white blood cells and play a very important role in the immune system helping to fight off diseases.
+
+Acute Lymphoblastic Leukemia is most commonly found in children, and is the most common form of child cancer, with around 3000 cases a year in the US alone. Like Acute Myeloid Leukemia, although common, it is still quite rare. In both children and adults, early detection is critical. Treatment must start imassetstely due to the aggressiveness of the cancer. [More info](https://www.leukemiaresearchassociation.ai/leukemia).
 
 ## ALL-IDB
 You need to be granted access to use the Acute Lymphoblastic Leukemia Image Database for Image Processing dataset. You can find the application form and information about getting access to the dataset on [this page](https://homes.di.unimi.it/scotti/all/#download) as well as information on how to contribute back to the project [here](https://homes.di.unimi.it/scotti/all/results.php). If you are not able to obtain a copy of the dataset please feel free to try this tutorial on your own dataset, we would be very happy to find additional AML & ALL datasets.
@@ -118,6 +121,10 @@ To create the newly improved **Acute Lymphoblastic Leukemia oneAPI Classifier 20
 - Train a model based on the architecture proposed in [Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System](https://airccj.org/CSCP/vol7/csit77505.pdf "Acute Leukemia Classification Using Convolution Neural Network In Clinical Decision Support System") using ALL_IDB1 from the [Acute Lymphoblastic Leukemia Image Database for Image Processing dataset](https://homes.di.unimi.it/scotti/all/#download).
 
 - Test the model using commandline and classify unseen data using HTTP requests to a local API endpoint and via the HIAS network.
+
+## GETTING STARTED
+
+Ready to get started ? Head over to the [Getting Started guide](#documentation/getting-started.md) for instructions on how to download/install and setup the Acute Lymphoblastic Leukemia oneAPI Classifier 2021.
 
 &nbsp;
 
