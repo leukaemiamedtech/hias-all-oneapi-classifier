@@ -159,3 +159,16 @@ class data(AbstractData):
 		""" Resizes an image to the provided dimensions (dim). """
 
 		return cv2.resize(cv2.imread(path), (dim, dim))
+
+	def reshape(self, img):
+		""" Classifies an image sent via HTTP. """
+
+		n, c, h, w = [1, 3, self.confs["data"]["dim"],
+					self.confs["data"]["dim"]]
+		processed = img.resize((h, w), resample=Image.BILINEAR)
+		processed = (np.array(processed) - 0) / 255.0
+		processed = processed.transpose((2, 0, 1))
+		processed = processed.reshape((n, h, w, c))
+		processed = processed[::-1]
+
+		return processed

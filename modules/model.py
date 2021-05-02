@@ -27,9 +27,12 @@ Contributors:
 
 """
 
+import cv2
 import json
 import os
+import time
 
+from mlxtend.plotting import plot_confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
@@ -51,6 +54,7 @@ class model(AbstractModel):
 	def prepare_data(self):
 		""" Creates/sorts dataset. """
 
+		self.data.remove_testing()
 		self.data.pre_process()
 
 		self.helpers.logger.info("Data preperation complete.")
@@ -221,13 +225,7 @@ class model(AbstractModel):
 		self.helpers.logger.info("Confusion Matrix: " + str(self.matrix))
 		print("")
 
-		plt.imshow(self.matrix, cmap=plt.cm.Blues)
-		plt.xlabel("Predicted labels")
-		plt.ylabel("True labels")
-		plt.xticks([], [])
-		plt.yticks([], [])
-		plt.title('Confusion matrix ')
-		plt.colorbar()
+		plot_confusion_matrix(conf_mat=self.matrix)
 		plt.savefig('model/plots/confusion-matrix.png')
 		plt.show()
 		plt.clf()
@@ -319,6 +317,7 @@ class model(AbstractModel):
 
 		dx, dy, dz = img.shape
 		input_data = img.reshape((-1, dx, dy, dz))
+		input_data = input_data / 255.0
 
 		return input_data
 
@@ -368,7 +367,67 @@ class model(AbstractModel):
 					msg = "Acute Lymphoblastic Leukemia incorrectly not detected (False Negative) in " + str(benchmark) + " seconds."
 				self.helpers.logger.info(msg)
 
-		self.helpers.logger.info("Images Classifier: " + str(files))
+		self.helpers.logger.info("Images Classified: " + str(files))
+		self.helpers.logger.info("True Positives: " + str(tp))
+		self.helpers.logger.info("False Positives: " + str(fp))
+		self.helpers.logger.info("True Negatives: " + str(tn))
+		self.helpers.logger.info("False Negatives: " + str(fn))
+		self.helpers.logger.info("Total Time Taken: " + str(totaltime))
+
+	def test_http(self):
+		""" HTTP test mode
+
+		Loops through the test directory and classifies the images
+		by sending data to the classifier using HTTP requests.
+		"""
+
+		totaltime = 0
+		files = 0
+
+		tp = 0
+		fp = 0
+		tn = 0
+		fn = 0
+
+		self.addr = "http://" + self.helpers.credentials["server"]["ip"] + \
+			':'+str(self.helpers.credentials["server"]["port"]) + '/Inference'
+		self.headers = {'content-type': 'image/jpeg'}
+
+		for testFile in os.listdir(self.testing_dir):
+			if os.path.splitext(testFile)[1] in self.valid:
+
+				start = time.time()
+				prediction = self.http_request(self.testing_dir + "/" + testFile)
+				end = time.time()
+				benchmark = end - start
+				totaltime += benchmark
+
+				msg = ""
+				status = ""
+				outcome = ""
+
+				if prediction["Diagnosis"] == "Positive" and "_1." in testFile:
+					tp += 1
+					status = "correctly"
+					outcome = "(True Positive)"
+				elif prediction["Diagnosis"] == "Positive" and "_0." in testFile:
+					fp += 1
+					status = "incorrectly"
+					outcome = "(False Positive)"
+				elif prediction["Diagnosis"] == "Negative" and "_0." in testFile:
+					tn += 1
+					status = "correctly"
+					outcome = "(True Negative)"
+				elif prediction["Diagnosis"] == "Negative" and "_1." in testFile:
+					fn += 1
+					status = "incorrectly"
+					outcome = "(False Negative)"
+
+				files += 1
+				self.helpers.logger.info("Acute Lymphoblastic Leukemia " + status +
+								" detected " + outcome + " in " + str(benchmark) + " seconds.")
+
+		self.helpers.logger.info("Images Classified: " + str(files))
 		self.helpers.logger.info("True Positives: " + str(tp))
 		self.helpers.logger.info("False Positives: " + str(fp))
 		self.helpers.logger.info("True Negatives: " + str(tn))

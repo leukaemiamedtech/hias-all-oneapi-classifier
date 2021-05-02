@@ -58,8 +58,6 @@ class AbstractData(ABC):
 		self.data = []
 		self.labels = []
 
-		self.remove_testing()
-
 		self.helpers.logger.info("Data class initialization complete.")
 
 	def remove_testing(self):
@@ -99,4 +97,9 @@ class AbstractData(ABC):
 	@abstractmethod
 	def resize(self, path, dim):
 		""" Resizes an image to the provided dimensions (dim). """
+		pass
+
+	@abstractmethod
+	def reshape(self, img):
+		""" Reshapes an image. """
 		pass

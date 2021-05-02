@@ -33,8 +33,8 @@ You will need to ensure you have the following prerequisites installed and setup
 ## Anaconda
 If you haven't already installed Anaconda you will need to install it now. Follow the [Anaconda installation guide](https://docs.anaconda.com/anaconda/install/ "Anaconda installation guide") to do so.
 
-### HIAS Server
-For this project you will need a functioning [HIAS Server](https://github.com/LeukemiaAiResearch/HIAS). To install the HIAS Server, follow the [HIAS Server Installation Guide](https://github.com/LeukemiaAiResearch/HIAS/blob/master/Documentation/Installation/Installation.md)
+## HIAS Server
+For this project you will need a functioning [HIAS Server](https://github.com/AIIAL/HIAS). To install the HIAS Server, follow the [HIAS Server Installation Guide](https://github.com/AIIAL/HIAS/blob/master/Documentation/Installation/Installation.md)
 
 # Installation
 You are now ready to install the Acute Lymphoblastic Leukemia oneAPI Classifier software.
@@ -53,10 +53,9 @@ conda deactivate
 Now you will install Intel® Distribution of OpenVINO™ Toolkit which will be used to convert your frozen model into an Intermediate Representation.
 
 ```
-wget https://apt.repos.intel.com/openvino/2021/GPG-PUB-KEY-INTEL-OPENVINO-2021
-echo "deb https://apt.repos.intel.com/openvino/2021 all main" | sudo tee /etc/apt/sources.list.d/intel-openvino-2021.list
-sudo apt update
-sudo apt install intel-openvino-runtime-ubuntu18-2021.1.110
+conda activate all-tfmkl
+conda install openvino-ie4py-ubuntu18 -c intel
+pip install test-generator==0.1.1
 ```
 ## Clone the repository
 

@@ -12,4 +12,5 @@ conda install Pillow
 conda install jsonpickle
 conda install scikit-learn
 conda install scikit-image
+pip install mlxtend
 echo "-- Done"

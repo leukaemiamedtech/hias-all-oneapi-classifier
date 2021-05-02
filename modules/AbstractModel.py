@@ -27,8 +27,11 @@ Contributors:
 
 """
 
+import cv2
+import json
 import os
 import random
+import requests
 import time
 
 import tensorflow as tf
@@ -76,6 +79,17 @@ class AbstractModel(ABC):
 		self.model_json = self.helpers.confs["model"]["model"]
 
 		self.helpers.logger.info("Model class initialization complete.")
+
+	def http_request(self, img_path):
+		""" Sends image to the inference API endpoint. """
+
+		self.helpers.logger.info("Sending request for: " + img_path)
+
+		_, img_encoded = cv2.imencode('.png', cv2.imread(img_path))
+		response = requests.post(self.addr, data=img_encoded.tostring(), headers=self.headers)
+		response = json.loads(response.text)
+
+		return response
 
 	@abstractmethod
 	def prepare_data(self):
@@ -148,9 +162,18 @@ class AbstractModel(ABC):
 		pass
 
 	@abstractmethod
-	def test(self, img):
+	def test(self):
 		"""Local test mode
 
 		Loops through the test directory and classifies the images.
+		"""
+		pass
+
+	@abstractmethod
+	def test_http(self):
+		""" HTTP test mode
+
+		Loops through the test directory and classifies the images
+		by sending data to the classifier using HTTP requests.
 		"""
 		pass

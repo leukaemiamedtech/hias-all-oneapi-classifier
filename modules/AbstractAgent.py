@@ -34,6 +34,7 @@ import threading
 from abc import ABC, abstractmethod
 
 from modules.helpers import helpers
+from modules.model import model
 from modules.mqtt import mqtt
 
 from threading import Thread
@@ -65,6 +66,8 @@ class AbstractAgent(ABC):
 		self.helpers = helpers("Agent")
 		self.confs = self.helpers.confs
 		self.credentials = self.helpers.credentials
+
+		self.model = model(self.helpers)
 
 		self.helpers.logger.info("Agent initialization complete.")
 

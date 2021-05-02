@@ -39,7 +39,7 @@ from abc import ABC, abstractmethod
 from modules.AbstractAgent import AbstractAgent
 
 from modules.helpers import helpers
-from modules.model import model
+from modules.server import server
 
 
 class agent(AbstractAgent):
@@ -54,24 +54,34 @@ class agent(AbstractAgent):
 
 		self.mqtt_start()
 
-		self.model = model(self.helpers)
-		self.model.prepare()
+		self.model.prepare_data()
+		self.model.prepare_network()
+		self.model.train()
+		self.model.evaluate()
 
 	def load_model(self):
 		""" Loads the trained model """
-		pass
+
+		self.model.load()
 
 	def inference(self):
 		""" Loads model and classifies test data locally """
-		pass
+
+		self.load_model()
+		self.model.test()
 
 	def server(self):
 		""" Loads the API server """
-		pass
+
+		self.mqtt_start()
+		self.load_model()
+		self.server = server(self.helpers, self.model, self.mqtt)
+		self.server.start()
 
 	def inference_http(self):
 		""" Loads model and classifies test data via HTTP requests """
-		pass
+
+		self.model.test_http()
 
 	def start(self, mode):
 		"""Starts the AI Agent """
