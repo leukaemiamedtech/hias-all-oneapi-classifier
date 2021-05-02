@@ -39,8 +39,8 @@ This guide will guide you through the installation process for the Acute Lymphob
 # Installation
 First you need to install the required software for training the model. Below are the available installation guides:
 
-- [Ubuntu installation guide](documentation/installation/ubuntu.md) (Training).
-- [Raspberry Pi 4 installation guide](documentation/installation/rpi4.md) (Inference on the edge).
+- [Ubuntu installation guide](installation/ubuntu.md) (Training).
+- [Raspberry Pi 4 installation guide](installation/rpi4.md) (Inference on the edge).
 
 &nbsp;
 
@@ -57,7 +57,7 @@ In the data processing stage, ten negative images and ten positive images are re
 
 To ensure your model gets the same results, please use the same test images. By default HIAS compatible projects will be expecting the same test images.  You can also try with your own image selection, however results may vary and you will need to make additional changes to our HIAS compatible projects.
 
-To specify which test images to use modify the [configuration/config.json](configuration/config.json) file as shown below:
+To specify which test images to use modify the [configuration/config.json](../configuration/config.json) file as shown below:
 
 ```
 "test_data": [
@@ -102,7 +102,7 @@ You will build a Convolutional Neural Network based on the proposed architecture
 &nbsp;
 
 ## Configuration
-[configuration/config.json](configuration/config.json "configuration/config.json")  holds the configuration for our application.
+[configuration/config.json](../configuration/config.json "configuration/config.json")  holds the configuration for our application.
 
 - Change **agent->cores** to the number of cores you have on your training computer.
 - Change **agent->server** to the local IP of your training device.
