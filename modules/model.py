@@ -95,19 +95,19 @@ class model(AbstractModel):
 
 		self.helpers.logger.info("Using Adam Optimizer.")
 		optimizer = tf.keras.optimizers.Adam(lr=self.helpers.confs["train"]["learning_rate_adam"],
-											decay = self.helpers.confs["train"]["decay_adam"])
+										decay = self.helpers.confs["train"]["decay_adam"])
 
 		self.tf_model.compile(optimizer=optimizer,
-							loss='binary_crossentropy',
-							metrics=[tf.keras.metrics.BinaryAccuracy(name='acc'),
-										tf.keras.metrics.Precision(name='precision'),
-										tf.keras.metrics.Recall(name='recall'),
-										tf.keras.metrics.AUC(name='auc') ])
+						loss='binary_crossentropy',
+						metrics=[tf.keras.metrics.BinaryAccuracy(name='acc'),
+								tf.keras.metrics.Precision(name='precision'),
+								tf.keras.metrics.Recall(name='recall'),
+								tf.keras.metrics.AUC(name='auc') ])
 
 		self.history = self.tf_model.fit(self.data.X_train, self.data.y_train,
-										validation_data=(self.data.X_test, self.data.y_test),
-										validation_steps=self.val_steps,
-										epochs=self.epochs)
+									validation_data=(self.data.X_test, self.data.y_test),
+									validation_steps=self.val_steps,
+									epochs=self.epochs)
 
 		print(self.history)
 		print("")
@@ -216,7 +216,7 @@ class model(AbstractModel):
 		""" Prints/displays the confusion matrix. """
 
 		self.matrix = confusion_matrix(self.data.y_test.argmax(axis=1),
-									self.test_preds.argmax(axis=1))
+								self.test_preds.argmax(axis=1))
 
 		self.helpers.logger.info("Confusion Matrix: " + str(self.matrix))
 		print("")
