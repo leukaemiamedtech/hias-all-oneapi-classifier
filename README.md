@@ -124,7 +124,7 @@ To create the newly improved **Acute Lymphoblastic Leukemia oneAPI Classifier 20
 
 ## GETTING STARTED
 
-Ready to get started ? Head over to the [Getting Started guide](#documentation/getting-started.md) for instructions on how to download/install and setup the Acute Lymphoblastic Leukemia oneAPI Classifier 2021.
+Ready to get started ? Head over to the [Getting Started guide](documentation/getting-started.md) for instructions on how to download/install and setup the Acute Lymphoblastic Leukemia oneAPI Classifier 2021.
 
 &nbsp;
 

@@ -71,10 +71,6 @@ If you are going to be contributing code or documentation to the repository you 
 
 # Repository structure
 
-We have a specific way to manage projects which must be kept in mind when contributing to an existing project or creating a new one. Our goal is to ensure that our project/code structures remain familiar for our Gihub community and Association Volunteers.
-
-Below you will find the required files for a project repository:
-
 ```
 - Project Root (Directory)
     - config (Directory) *
@@ -102,14 +98,16 @@ Below you will find the required files for a project repository:
             - images (Directory)
             - videos (Directory)
     - model
+        - data (Directory) *
+            - test (Directory) *
+            - train (Directory) *
+            - plots (Directory) *
         - model.json (File)
         - weights.h (File)
     - scripts
         - install.sh (File)
     - agent.py (File)
-    - README.md (File)
-    - CONTRIBUTING.md (File)
-    - LICENSE (File)
+    - Project README (File)
 ```
 
 &nbsp;
