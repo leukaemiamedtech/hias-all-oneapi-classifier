@@ -15,9 +15,6 @@
 	- [Data Augmentation](#data-augmentation)
 	- [Application Testing Data](#application-testing-data)
 - [Configuration](#configuration)
-- [HIAS](#hias)
-    - [AI Model](#ai-model)
-    - [AI Agent](#ai-agent)
 - [Training](#training)
     - [Metrics](#metrics)
 	- [Start Training](#start-training)
@@ -27,7 +24,13 @@
 	- [Metrics Overview](#metrics-overview)
 	- [ALL-IDB Required Metrics](#all-idb-required-metrics)
 - [Testing](#testing)
-- [Convert Model](#convert-model)
+- [OpenVINO Intermediate Representation](#openvino-intermediate-representation)
+- [Raspberry Pi 4](#raspberry-pi-4)
+    - [Raspberry Pi OS](#raspberry-pi-os)
+    - [Intel® Distribution of OpenVINO™ Toolkit](#intel-distribution-of-openvino-toolkit)
+    - [Intel® Movidius™ Neural Compute Stick 2](#intel-movidius-neural-compute-stick-2)
+    - [Software Install](#software-install)
+    - [Local Testing](#local-testing)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
 - [Versioning](#versioning)
@@ -186,52 +189,6 @@ To specify which test images to use modify the [configuration/config.json](../co
 ```
 
 The configuration object contains 4 Json Objects (agent, data, model and train). Agent has the information used to set up your server, data has the configuration related to preparing the training and validation data, model holds the model file paths, and train holds the training parameters.
-
-&nbsp;
-
-# HIAS
-
-This device is a HIAS AI Agent and uses the HIAS MQTT Broker to communicate with the HIAS network. To setup an AI Agent on the HIAS network, head to the HIAS UI.
-
-The HIAS network is powered by a context broker that stores contextual data and exposes the data securely to authenticated HIAS applications and devices.
-
-Each HIAS AI Agent & AI Model has a JSON representation stored in the HIAS Context Broker that holds their contextual information.
-
-## AI Model
-
-A HIAS AI Model is a JSON representation of an Artificial Intelligence model used by the HIAS network.
-
-First you need to set a HIAS AI Model up in the HIAS UI. Navigate to **AI->Models->Create** to create a HIAS AI Model. A future release of HIAS will provide the functionality to import the HIAS JSON representation of the AI Model, but for now you have to manually create the AI Model in the UI.
-
-![HIAS AI Model](../assets/images/hias-ai-model.jpg)
-
-Once you have completed the form and submitted it, you can find the newly created AI Model by navigating to **AI->Models->List** and clicking on the relevant Model.
-
-On the HIAS AI Model page you will be able to update the contextual data for the model, and also find the JSON representation.
-
-![HIAS AI Model](../assets/images/hias-ai-model-edit.jpg)
-
-## AI Agent
-
-A HIAS AI Agent is a bridge between HIAS devices and applications, and HIAS IoT Agents. The AI Agents process incoming data by passing it through HIAS AI Models and returning the response back to the requesting device/application.
-
-As with AI Models, AI Agents have an entry in the HIAS Context Broker and a JSON representation stored on the network.
-
-You will now need to create your HIAS AI Agent and retrieve the credentials required by your Acute Lymphoblastic Leukemia oneAPI Classifier. Navigate to **AI->Agents->Create** to create a HIAS AI Model.
-
-![HIAS AI Agent](../assets/images/hias-ai-agent.jpg)
-
-**MAKE SURE YOU SELECT THE PREVIOUSLY CREATED HIAS AI MODEL**
-
-Once you have completed the form and submitted it, you can find the newly created AI Agent by navigating to **AI->Agents->List** and clicking on the relevant Agent.
-
-On the HIAS AI Agent page you will be able to update the contextual data for the agent, and also find the JSON representation.
-
-![HIAS AI Model](../assets/images/hias-ai-agent-edit.jpg)
-
-You now need to download the credentials required to connect the Acute Lymphoblastic Leukemia oneAPI Classifier to the HIAS network.
-
-Click on the **Agent Credentials** section to download the credentials file. This should open your file browser, navigate to the **Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/configuration/** directory and save the file as **credentials.json**.
 
 &nbsp;
 
@@ -417,51 +374,51 @@ Non-trainable params: 0
 Finally the application will start processing the test images and the results will be displayed in the console.
 
 ```
-2021-05-02 21:38:46,437 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.15969634056091309 seconds.
-2021-05-02 21:38:46,472 - Agent - INFO - Loaded test image model/data/test/Im028_1.jpg
-2021-05-02 21:38:46,494 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05695939064025879 seconds.
-2021-05-02 21:38:46,577 - Agent - INFO - Loaded test image model/data/test/Im106_0.jpg
-2021-05-02 21:38:46,598 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10403966903686523 seconds.
-2021-05-02 21:38:46,680 - Agent - INFO - Loaded test image model/data/test/Im101_0.jpg
-2021-05-02 21:38:46,702 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10358524322509766 seconds.
-2021-05-02 21:38:46,736 - Agent - INFO - Loaded test image model/data/test/Im024_1.jpg
-2021-05-02 21:38:46,757 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05475354194641113 seconds.
-2021-05-02 21:38:46,839 - Agent - INFO - Loaded test image model/data/test/Im074_0.jpg
-2021-05-02 21:38:46,864 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.1065070629119873 seconds.
-2021-05-02 21:38:46,946 - Agent - INFO - Loaded test image model/data/test/Im035_0.jpg
-2021-05-02 21:38:46,970 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.1056666374206543 seconds.
-2021-05-02 21:38:47,003 - Agent - INFO - Loaded test image model/data/test/Im006_1.jpg
-2021-05-02 21:38:47,024 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05464029312133789 seconds.
-2021-05-02 21:38:47,058 - Agent - INFO - Loaded test image model/data/test/Im020_1.jpg
-2021-05-02 21:38:47,079 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05452728271484375 seconds.
-2021-05-02 21:38:47,151 - Agent - INFO - Loaded test image model/data/test/Im095_0.jpg
-2021-05-02 21:38:47,173 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 0.09325885772705078 seconds.
-2021-05-02 21:38:47,255 - Agent - INFO - Loaded test image model/data/test/Im069_0.jpg
-2021-05-02 21:38:47,276 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.1036827564239502 seconds.
-2021-05-02 21:38:47,310 - Agent - INFO - Loaded test image model/data/test/Im031_1.jpg
-2021-05-02 21:38:47,331 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05464768409729004 seconds.
-2021-05-02 21:38:47,414 - Agent - INFO - Loaded test image model/data/test/Im099_0.jpg
-2021-05-02 21:38:47,436 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10416984558105469 seconds.
-2021-05-02 21:38:47,469 - Agent - INFO - Loaded test image model/data/test/Im026_1.jpg
-2021-05-02 21:38:47,491 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05491828918457031 seconds.
-2021-05-02 21:38:47,573 - Agent - INFO - Loaded test image model/data/test/Im057_1.jpg
-2021-05-02 21:38:47,598 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.10681462287902832 seconds.
-2021-05-02 21:38:47,681 - Agent - INFO - Loaded test image model/data/test/Im088_0.jpg
-2021-05-02 21:38:47,703 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.1050255298614502 seconds.
-2021-05-02 21:38:47,785 - Agent - INFO - Loaded test image model/data/test/Im060_1.jpg
-2021-05-02 21:38:47,807 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.10350656509399414 seconds.
-2021-05-02 21:38:47,890 - Agent - INFO - Loaded test image model/data/test/Im053_1.jpg
-2021-05-02 21:38:47,912 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly not detected (False Negative) in 0.10537457466125488 seconds.
-2021-05-02 21:38:47,995 - Agent - INFO - Loaded test image model/data/test/Im041_0.jpg
-2021-05-02 21:38:48,016 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10396504402160645 seconds.
-2021-05-02 21:38:48,099 - Agent - INFO - Loaded test image model/data/test/Im047_0.jpg
-2021-05-02 21:38:48,120 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10404443740844727 seconds.
-2021-05-02 21:38:48,121 - Agent - INFO - Images Classified: 20
-2021-05-02 21:38:48,121 - Agent - INFO - True Positives: 9
-2021-05-02 21:38:48,121 - Agent - INFO - False Positives: 1
-2021-05-02 21:38:48,121 - Agent - INFO - True Negatives: 9
-2021-05-02 21:38:48,121 - Agent - INFO - False Negatives: 1
-2021-05-02 21:38:48,121 - Agent - INFO - Total Time Taken: 1.8397836685180664
+2021-05-03 22:56:09,704 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.1585226058959961 seconds.
+2021-05-03 22:56:09,739 - Agent - INFO - Loaded test image model/data/test/Im028_1.jpg
+2021-05-03 22:56:09,760 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05670356750488281 seconds.
+2021-05-03 22:56:09,845 - Agent - INFO - Loaded test image model/data/test/Im106_0.jpg
+2021-05-03 22:56:09,867 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10596728324890137 seconds.
+2021-05-03 22:56:09,949 - Agent - INFO - Loaded test image model/data/test/Im101_0.jpg
+2021-05-03 22:56:09,971 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10411334037780762 seconds.
+2021-05-03 22:56:10,007 - Agent - INFO - Loaded test image model/data/test/Im024_1.jpg
+2021-05-03 22:56:10,032 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.06063079833984375 seconds.
+2021-05-03 22:56:10,115 - Agent - INFO - Loaded test image model/data/test/Im074_0.jpg
+2021-05-03 22:56:10,137 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10519862174987793 seconds.
+2021-05-03 22:56:10,220 - Agent - INFO - Loaded test image model/data/test/Im035_0.jpg
+2021-05-03 22:56:10,244 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10655450820922852 seconds.
+2021-05-03 22:56:10,277 - Agent - INFO - Loaded test image model/data/test/Im006_1.jpg
+2021-05-03 22:56:10,298 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05443882942199707 seconds.
+2021-05-03 22:56:10,332 - Agent - INFO - Loaded test image model/data/test/Im020_1.jpg
+2021-05-03 22:56:10,353 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.054483890533447266 seconds.
+2021-05-03 22:56:10,424 - Agent - INFO - Loaded test image model/data/test/Im095_0.jpg
+2021-05-03 22:56:10,446 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 0.0931251049041748 seconds.
+2021-05-03 22:56:10,529 - Agent - INFO - Loaded test image model/data/test/Im069_0.jpg
+2021-05-03 22:56:10,551 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10473918914794922 seconds.
+2021-05-03 22:56:10,588 - Agent - INFO - Loaded test image model/data/test/Im031_1.jpg
+2021-05-03 22:56:10,610 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.05825352668762207 seconds.
+2021-05-03 22:56:10,693 - Agent - INFO - Loaded test image model/data/test/Im099_0.jpg
+2021-05-03 22:56:10,715 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10500550270080566 seconds.
+2021-05-03 22:56:10,748 - Agent - INFO - Loaded test image model/data/test/Im026_1.jpg
+2021-05-03 22:56:10,776 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.06057333946228027 seconds.
+2021-05-03 22:56:10,858 - Agent - INFO - Loaded test image model/data/test/Im057_1.jpg
+2021-05-03 22:56:10,880 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.10422873497009277 seconds.
+2021-05-03 22:56:10,963 - Agent - INFO - Loaded test image model/data/test/Im088_0.jpg
+2021-05-03 22:56:10,985 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10511159896850586 seconds.
+2021-05-03 22:56:11,067 - Agent - INFO - Loaded test image model/data/test/Im060_1.jpg
+2021-05-03 22:56:11,092 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.10669517517089844 seconds.
+2021-05-03 22:56:11,177 - Agent - INFO - Loaded test image model/data/test/Im053_1.jpg
+2021-05-03 22:56:11,199 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly not detected (False Negative) in 0.10645747184753418 seconds.
+2021-05-03 22:56:11,282 - Agent - INFO - Loaded test image model/data/test/Im041_0.jpg
+2021-05-03 22:56:11,303 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10442733764648438 seconds.
+2021-05-03 22:56:11,387 - Agent - INFO - Loaded test image model/data/test/Im047_0.jpg
+2021-05-03 22:56:11,408 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.10486173629760742 seconds.
+2021-05-03 22:56:11,409 - Agent - INFO - Images Classified: 20
+2021-05-03 22:56:11,409 - Agent - INFO - True Positives: 9
+2021-05-03 22:56:11,409 - Agent - INFO - False Positives: 1
+2021-05-03 22:56:11,409 - Agent - INFO - True Negatives: 9
+2021-05-03 22:56:11,409 - Agent - INFO - False Negatives: 1
+2021-05-03 22:56:11,409 - Agent - INFO - Total Time Taken: 1.8600921630859375
 ```
 
 In the current terminal, now use the following command:
@@ -479,60 +436,271 @@ python3 agenty.py classify_http
 This will start agent in HTTP Inference mode. The agent will loop through the testing data and send each image to the server for classification, the results are then displayed in the console.
 
 ```
-2021-05-02 21:39:18,965 - Agent - INFO - Sending request for: model/data/test/Im063_1.jpg
-2021-05-02 21:39:19,462 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.4971804618835449 seconds.
-2021-05-02 21:39:19,462 - Agent - INFO - Sending request for: model/data/test/Im028_1.jpg
-2021-05-02 21:39:19,691 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.22867822647094727 seconds.
-2021-05-02 21:39:19,691 - Agent - INFO - Sending request for: model/data/test/Im106_0.jpg
-2021-05-02 21:39:20,104 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.41293954849243164 seconds.
-2021-05-02 21:39:20,104 - Agent - INFO - Sending request for: model/data/test/Im101_0.jpg
-2021-05-02 21:39:20,517 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.41324901580810547 seconds.
-2021-05-02 21:39:20,517 - Agent - INFO - Sending request for: model/data/test/Im024_1.jpg
-2021-05-02 21:39:20,716 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.19890832901000977 seconds.
-2021-05-02 21:39:20,716 - Agent - INFO - Sending request for: model/data/test/Im074_0.jpg
-2021-05-02 21:39:21,128 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.41187310218811035 seconds.
-2021-05-02 21:39:21,128 - Agent - INFO - Sending request for: model/data/test/Im035_0.jpg
-2021-05-02 21:39:21,539 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4105658531188965 seconds.
-2021-05-02 21:39:21,539 - Agent - INFO - Sending request for: model/data/test/Im006_1.jpg
-2021-05-02 21:39:21,740 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.20087504386901855 seconds.
-2021-05-02 21:39:21,740 - Agent - INFO - Sending request for: model/data/test/Im020_1.jpg
-2021-05-02 21:39:21,946 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.20533061027526855 seconds.
-2021-05-02 21:39:21,946 - Agent - INFO - Sending request for: model/data/test/Im095_0.jpg
-2021-05-02 21:39:22,325 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 0.3794980049133301 seconds.
-2021-05-02 21:39:22,325 - Agent - INFO - Sending request for: model/data/test/Im069_0.jpg
-2021-05-02 21:39:22,740 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4143247604370117 seconds.
-2021-05-02 21:39:22,740 - Agent - INFO - Sending request for: model/data/test/Im031_1.jpg
-2021-05-02 21:39:22,939 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.19963884353637695 seconds.
-2021-05-02 21:39:22,939 - Agent - INFO - Sending request for: model/data/test/Im099_0.jpg
-2021-05-02 21:39:23,350 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 0.41005873680114746 seconds.
-2021-05-02 21:39:23,350 - Agent - INFO - Sending request for: model/data/test/Im026_1.jpg
-2021-05-02 21:39:23,550 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.20075702667236328 seconds.
-2021-05-02 21:39:23,551 - Agent - INFO - Sending request for: model/data/test/Im057_1.jpg
-2021-05-02 21:39:23,960 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.4094827175140381 seconds.
-2021-05-02 21:39:23,960 - Agent - INFO - Sending request for: model/data/test/Im088_0.jpg
-2021-05-02 21:39:24,372 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4121434688568115 seconds.
-2021-05-02 21:39:24,372 - Agent - INFO - Sending request for: model/data/test/Im060_1.jpg
-2021-05-02 21:39:24,784 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Negative) in 0.41173434257507324 seconds.
-2021-05-02 21:39:24,784 - Agent - INFO - Sending request for: model/data/test/Im053_1.jpg
-2021-05-02 21:39:25,206 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.4215230941772461 seconds.
-2021-05-02 21:39:25,206 - Agent - INFO - Sending request for: model/data/test/Im041_0.jpg
-2021-05-02 21:39:25,617 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.41069746017456055 seconds.
-2021-05-02 21:39:25,617 - Agent - INFO - Sending request for: model/data/test/Im047_0.jpg
-2021-05-02 21:39:26,032 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4154655933380127 seconds.
-2021-05-02 21:39:26,032 - Agent - INFO - Images Classified: 20
-2021-05-02 21:39:26,032 - Agent - INFO - True Positives: 9
-2021-05-02 21:39:26,033 - Agent - INFO - False Positives: 2
-2021-05-02 21:39:26,033 - Agent - INFO - True Negatives: 8
-2021-05-02 21:39:26,033 - Agent - INFO - False Negatives: 1
-2021-05-02 21:39:26,033 - Agent - INFO - Total Time Taken: 7.064924240112305
+2021-05-03 23:04:49,099 - Agent - INFO - Sending request for: model/data/test/Im063_1.jpg
+2021-05-03 23:04:49,594 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.4954085350036621 seconds.
+2021-05-03 23:04:49,594 - Agent - INFO - Sending request for: model/data/test/Im028_1.jpg
+2021-05-03 23:04:49,826 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.2316751480102539 seconds.
+2021-05-03 23:04:49,826 - Agent - INFO - Sending request for: model/data/test/Im106_0.jpg
+2021-05-03 23:04:50,240 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4138331413269043 seconds.
+2021-05-03 23:04:50,240 - Agent - INFO - Sending request for: model/data/test/Im101_0.jpg
+2021-05-03 23:04:50,656 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.41562962532043457 seconds.
+2021-05-03 23:04:50,656 - Agent - INFO - Sending request for: model/data/test/Im024_1.jpg
+2021-05-03 23:04:50,854 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.19834423065185547 seconds.
+2021-05-03 23:04:50,854 - Agent - INFO - Sending request for: model/data/test/Im074_0.jpg
+2021-05-03 23:04:51,271 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4169602394104004 seconds.
+2021-05-03 23:04:51,271 - Agent - INFO - Sending request for: model/data/test/Im035_0.jpg
+2021-05-03 23:04:51,697 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.42549872398376465 seconds.
+2021-05-03 23:04:51,697 - Agent - INFO - Sending request for: model/data/test/Im006_1.jpg
+2021-05-03 23:04:51,901 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.20358586311340332 seconds.
+2021-05-03 23:04:51,901 - Agent - INFO - Sending request for: model/data/test/Im020_1.jpg
+2021-05-03 23:04:52,099 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.1985161304473877 seconds.
+2021-05-03 23:04:52,099 - Agent - INFO - Sending request for: model/data/test/Im095_0.jpg
+2021-05-03 23:04:52,476 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 0.3768906593322754 seconds.
+2021-05-03 23:04:52,476 - Agent - INFO - Sending request for: model/data/test/Im069_0.jpg
+2021-05-03 23:04:52,883 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4070127010345459 seconds.
+2021-05-03 23:04:52,884 - Agent - INFO - Sending request for: model/data/test/Im031_1.jpg
+2021-05-03 23:04:53,084 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.20087146759033203 seconds.
+2021-05-03 23:04:53,085 - Agent - INFO - Sending request for: model/data/test/Im099_0.jpg
+2021-05-03 23:04:53,498 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 0.4138002395629883 seconds.
+2021-05-03 23:04:53,498 - Agent - INFO - Sending request for: model/data/test/Im026_1.jpg
+2021-05-03 23:04:53,700 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.20121002197265625 seconds.
+2021-05-03 23:04:53,700 - Agent - INFO - Sending request for: model/data/test/Im057_1.jpg
+2021-05-03 23:04:54,108 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.40814685821533203 seconds.
+2021-05-03 23:04:54,108 - Agent - INFO - Sending request for: model/data/test/Im088_0.jpg
+2021-05-03 23:04:54,519 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.41127872467041016 seconds.
+2021-05-03 23:04:54,519 - Agent - INFO - Sending request for: model/data/test/Im060_1.jpg
+2021-05-03 23:04:54,938 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Negative) in 0.41834306716918945 seconds.
+2021-05-03 23:04:54,938 - Agent - INFO - Sending request for: model/data/test/Im053_1.jpg
+2021-05-03 23:04:55,350 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.41184020042419434 seconds.
+2021-05-03 23:04:55,350 - Agent - INFO - Sending request for: model/data/test/Im041_0.jpg
+2021-05-03 23:04:55,759 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.4095749855041504 seconds.
+2021-05-03 23:04:55,760 - Agent - INFO - Sending request for: model/data/test/Im047_0.jpg
+2021-05-03 23:04:56,173 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 0.41382861137390137 seconds.
+2021-05-03 23:04:56,173 - Agent - INFO - Images Classified: 20
+2021-05-03 23:04:56,174 - Agent - INFO - True Positives: 9
+2021-05-03 23:04:56,174 - Agent - INFO - False Positives: 2
+2021-05-03 23:04:56,174 - Agent - INFO - True Negatives: 8
+2021-05-03 23:04:56,174 - Agent - INFO - False Negatives: 1
+2021-05-03 23:04:56,174 - Agent - INFO - Total Time Taken: 7.072249174118042
 ```
-
-# Convert Model
+# OpenVINO Intermediate Representation
 
 Now you need to convert your frozen model to an Intermediate Representation. To do this, use the following command, replacing **YourProjectPath** with the path to your project home.
 
 ```
 python3 /opt/intel/openvino_2021/deployment_tools/model_optimizer/mo_tf.py --input_model /YourProjectPath/ALL-Classifier-2020/model/freezing/frozen.pb --input_shape [1,100,100,3] --output_dir /YourProjectPath/ALL-Classifier-2020/model/ir --reverse_input_channels --generate_deprecated_IR_V7
+```
+
+&nbsp;
+
+# Raspberry Pi 4
+
+The final part of this project is to set up the Acute Lymphoblastic Leukemia oneAPI Classifier on a Raspberry Pi 4 and install OpenVINO.
+
+## Raspberry Pi OS
+For this Project, the operating system choice is [Raspberry Pi OS](https://www.raspberrypi.org/downloads/raspberry-pi-os/ "Raspberry Pi OS").
+
+## Intel® Distribution of OpenVINO™ Toolkit
+To install Intel® Distribution of OpenVINO™ Toolkit for Raspberry Pi, navigate to the home directory on your Raspberry Pi and use the following commands:
+
+```
+  wget https://download.01.org/opencv/2021/openvinotoolkit/2021.2/l_openvino_toolkit_runtime_raspbian_p_2021.2.185.tgz
+```
+```
+  sudo mkdir -p /opt/intel/openvino
+  sudo tar -xf  l_openvino_toolkit_runtime_raspbian_p_2021.2.185.tgz  --strip 1 -C /opt/intel/openvino
+```
+```
+  sudo apt install cmake
+  source /opt/intel/openvino/bin/setupvars.sh
+  echo "source /opt/intel/openvino/bin/setupvars.sh" >> ~/.bashrc
+```
+
+## Intel® Movidius™ Neural Compute Stick 2
+Now we will set up ready for Neural Compute Stick 2.
+```
+  sudo usermod -a -G users "$(whoami)"
+```
+Now close your existing terminal and open a new open. Once in your new terminal use the following commands:
+```
+  sh /opt/intel/openvino/install_dependencies/install_NCS_udev_rules.sh
+```
+
+## Transfer Files
+
+Next you need to transfer the project folder to your Raspberry Pi, make sure that you have all of the files from the model directory.
+
+You need to make some minor changes to the code.
+
+In **agent.py** comment out line 43 and uncomment line 44.
+
+```
+43 #from modules.model import model
+44 from modules.model_openvino import model_openvino
+```
+
+In **modules/AbstractAgent.py** do the same changes to lines 38 and 39.
+
+```
+38 #from modules.model import model
+39 from modules.model_openvino import model_openvino
+```
+
+In **configuration/config.json** change the IP of the server (agent->server) to match the IP of your Raspberry Pi.
+
+```
+
+    "agent": {
+        "cores": 8,
+        "server": "Add Server IP",
+        "port": 1234,
+        "params": [
+            "train",
+            "classify",
+            "server",
+            "classify_http",
+            "classify_openvino",
+            "server_openvino",
+            "classify_openvino_http"
+        ]
+    },
+```
+
+## Software Install
+
+All other requirements are included in **scripts/install_rpi4.sh**. You can run this file on machine by navigating to the project root in terminal and using the commands below:
+
+```
+ sed -i 's/\r//' scripts/install_rpi4.sh
+ sh scripts/install_rpi4.sh
+```
+
+## Local Testing
+
+Now you will test the classifier on your Raspberry Pi 4 using OpenVINO & Neural Compute Stick 2. You will use the 20 images that were removed from the training data in a previous part of this tutorial.
+
+To run the AI Agent in test mode use the following command:
+
+```
+python3 agenty.py classify_openvino
+```
+
+You should see the application will start processing the test images and the results will be displayed in the console.
+
+```
+2021-05-03 23:43:22,310 - Agent - INFO - OpenVINO loaded.
+2021-05-03 23:43:22,633 - Agent - INFO - Loaded test image model/data/test/Im099_0.jpg
+2021-05-03 23:43:24,387 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 2.07651948928833 seconds.
+2021-05-03 23:43:24,711 - Agent - INFO - Loaded test image model/data/test/Im047_0.jpg
+2021-05-03 23:43:24,727 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.3396339416503906 seconds.
+2021-05-03 23:43:25,050 - Agent - INFO - Loaded test image model/data/test/Im106_0.jpg
+2021-05-03 23:43:25,066 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.33814501762390137 seconds.
+2021-05-03 23:43:25,206 - Agent - INFO - Loaded test image model/data/test/Im020_1.jpg
+2021-05-03 23:43:25,221 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.15483784675598145 seconds.
+2021-05-03 23:43:25,518 - Agent - INFO - Loaded test image model/data/test/Im095_0.jpg
+2021-05-03 23:43:25,533 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 0.31178736686706543 seconds.
+2021-05-03 23:43:25,858 - Agent - INFO - Loaded test image model/data/test/Im053_1.jpg
+2021-05-03 23:43:25,874 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly not detected (False Negative) in 0.33997583389282227 seconds.
+2021-05-03 23:43:26,013 - Agent - INFO - Loaded test image model/data/test/Im024_1.jpg
+2021-05-03 23:43:26,029 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.15473532676696777 seconds.
+2021-05-03 23:43:26,351 - Agent - INFO - Loaded test image model/data/test/Im069_0.jpg
+2021-05-03 23:43:26,367 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.33750343322753906 seconds.
+2021-05-03 23:43:26,687 - Agent - INFO - Loaded test image model/data/test/Im074_0.jpg
+2021-05-03 23:43:26,703 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.3357832431793213 seconds.
+2021-05-03 23:43:26,843 - Agent - INFO - Loaded test image model/data/test/Im006_1.jpg
+2021-05-03 23:43:26,858 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.1549975872039795 seconds.
+2021-05-03 23:43:27,183 - Agent - INFO - Loaded test image model/data/test/Im088_0.jpg
+2021-05-03 23:43:27,198 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.33968353271484375 seconds.
+2021-05-03 23:43:27,521 - Agent - INFO - Loaded test image model/data/test/Im060_1.jpg
+2021-05-03 23:43:27,536 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.33792710304260254 seconds.
+2021-05-03 23:43:27,860 - Agent - INFO - Loaded test image model/data/test/Im101_0.jpg
+2021-05-03 23:43:27,875 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.33822011947631836 seconds.
+2021-05-03 23:43:28,015 - Agent - INFO - Loaded test image model/data/test/Im031_1.jpg
+2021-05-03 23:43:28,030 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.15496253967285156 seconds.
+2021-05-03 23:43:28,353 - Agent - INFO - Loaded test image model/data/test/Im063_1.jpg
+2021-05-03 23:43:28,368 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.3369777202606201 seconds.
+2021-05-03 23:43:28,692 - Agent - INFO - Loaded test image model/data/test/Im035_0.jpg
+2021-05-03 23:43:28,707 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.33898305892944336 seconds.
+2021-05-03 23:43:29,034 - Agent - INFO - Loaded test image model/data/test/Im057_1.jpg
+2021-05-03 23:43:29,049 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.3415520191192627 seconds.
+2021-05-03 23:43:29,372 - Agent - INFO - Loaded test image model/data/test/Im041_0.jpg
+2021-05-03 23:43:29,388 - Agent - INFO - Acute Lymphoblastic Leukemia correctly not detected (True Negative) in 0.33808064460754395 seconds.
+2021-05-03 23:43:29,528 - Agent - INFO - Loaded test image model/data/test/Im028_1.jpg
+2021-05-03 23:43:29,543 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.15532946586608887 seconds.
+2021-05-03 23:43:29,683 - Agent - INFO - Loaded test image model/data/test/Im026_1.jpg
+2021-05-03 23:43:29,698 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.15422916412353516 seconds.
+2021-05-03 23:43:29,698 - Agent - INFO - Images Classifier: 20
+2021-05-03 23:43:29,699 - Agent - INFO - True Positives: 9
+2021-05-03 23:43:29,699 - Agent - INFO - False Positives: 1
+2021-05-03 23:43:29,699 - Agent - INFO - True Negatives: 9
+2021-05-03 23:43:29,699 - Agent - INFO - False Negatives: 1
+2021-05-03 23:43:29,699 - Agent - INFO - Total Time Taken: 7.379864454269409
+```
+
+## Server Testing
+
+In the current terminal, now use the following command:
+
+```
+python3 agenty.py server_openvino
+```
+
+This will start the server on your training machine that exposes the model via a REST API. Now open a new terminal, navigate to the project root and use the following command:
+
+```
+python3 agenty.py classify_openvino_http
+```
+
+This will start agent in HTTP Inference mode. The agent will loop through the testing data and send each image to the server for classification, the results are then displayed in the console.
+
+```
+2021-05-03 23:50:26,485 - Agent - INFO - OpenVINO class initialization complete.
+2021-05-03 23:50:26,485 - Agent - INFO - Sending request for: model/data/test/Im099_0.jpg
+2021-05-03 23:50:27,847 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3621375560760498 seconds.
+2021-05-03 23:50:27,848 - Agent - INFO - Sending request for: model/data/test/Im047_0.jpg
+2021-05-03 23:50:29,204 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3563497066497803 seconds.
+2021-05-03 23:50:29,204 - Agent - INFO - Sending request for: model/data/test/Im106_0.jpg
+2021-05-03 23:50:30,561 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3568847179412842 seconds.
+2021-05-03 23:50:30,562 - Agent - INFO - Sending request for: model/data/test/Im020_1.jpg
+2021-05-03 23:50:31,233 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.6714181900024414 seconds.
+2021-05-03 23:50:31,234 - Agent - INFO - Sending request for: model/data/test/Im095_0.jpg
+2021-05-03 23:50:32,491 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Positive) in 1.2567052841186523 seconds.
+2021-05-03 23:50:32,491 - Agent - INFO - Sending request for: model/data/test/Im053_1.jpg
+2021-05-03 23:50:33,885 - Agent - INFO - Acute Lymphoblastic Leukemia incorrectly detected (False Negative) in 1.3938932418823242 seconds.
+2021-05-03 23:50:33,885 - Agent - INFO - Sending request for: model/data/test/Im024_1.jpg
+2021-05-03 23:50:34,528 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.6430263519287109 seconds.
+2021-05-03 23:50:34,529 - Agent - INFO - Sending request for: model/data/test/Im069_0.jpg
+2021-05-03 23:50:35,881 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3517706394195557 seconds.
+2021-05-03 23:50:35,881 - Agent - INFO - Sending request for: model/data/test/Im074_0.jpg
+2021-05-03 23:50:37,229 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3475196361541748 seconds.
+2021-05-03 23:50:37,229 - Agent - INFO - Sending request for: model/data/test/Im006_1.jpg
+2021-05-03 23:50:37,881 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.6519880294799805 seconds.
+2021-05-03 23:50:37,881 - Agent - INFO - Sending request for: model/data/test/Im088_0.jpg
+2021-05-03 23:50:39,239 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3579890727996826 seconds.
+2021-05-03 23:50:39,240 - Agent - INFO - Sending request for: model/data/test/Im060_1.jpg
+2021-05-03 23:50:40,595 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 1.3549017906188965 seconds.
+2021-05-03 23:50:40,595 - Agent - INFO - Sending request for: model/data/test/Im101_0.jpg
+2021-05-03 23:50:41,952 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3565378189086914 seconds.
+2021-05-03 23:50:41,952 - Agent - INFO - Sending request for: model/data/test/Im031_1.jpg
+2021-05-03 23:50:42,634 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.6819820404052734 seconds.
+2021-05-03 23:50:42,635 - Agent - INFO - Sending request for: model/data/test/Im063_1.jpg
+2021-05-03 23:50:43,989 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 1.3541193008422852 seconds.
+2021-05-03 23:50:43,989 - Agent - INFO - Sending request for: model/data/test/Im035_0.jpg
+2021-05-03 23:50:45,382 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3929808139801025 seconds.
+2021-05-03 23:50:45,383 - Agent - INFO - Sending request for: model/data/test/Im057_1.jpg
+2021-05-03 23:50:46,735 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 1.3522601127624512 seconds.
+2021-05-03 23:50:46,735 - Agent - INFO - Sending request for: model/data/test/Im041_0.jpg
+2021-05-03 23:50:48,088 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Negative) in 1.3523664474487305 seconds.
+2021-05-03 23:50:48,088 - Agent - INFO - Sending request for: model/data/test/Im028_1.jpg
+2021-05-03 23:50:48,735 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.6467878818511963 seconds.
+2021-05-03 23:50:48,735 - Agent - INFO - Sending request for: model/data/test/Im026_1.jpg
+2021-05-03 23:50:49,385 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.6494393348693848 seconds.
+2021-05-03 23:50:49,385 - Agent - INFO - Images Classified: 20
+2021-05-03 23:50:49,385 - Agent - INFO - True Positives: 9
+2021-05-03 23:50:49,386 - Agent - INFO - False Positives: 1
+2021-05-03 23:50:49,386 - Agent - INFO - True Negatives: 9
+2021-05-03 23:50:49,386 - Agent - INFO - False Negatives: 1
+2021-05-03 23:50:49,386 - Agent - INFO - Total Time Taken: 22.89105796813965
 ```
 
 # Contributing

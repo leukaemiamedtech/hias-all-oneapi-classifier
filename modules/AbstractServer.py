@@ -34,7 +34,7 @@ class AbstractServer(ABC):
 	Abstract class for the HIAS IoT Agent server/API.
 	"""
 
-	def __init__(self, helpers, model, mqtt):
+	def __init__(self, helpers, model, model_type, mqtt):
 		"Initializes the AbstractModel object."
 		super().__init__()
 
@@ -42,6 +42,7 @@ class AbstractServer(ABC):
 		self.confs = self.helpers.confs
 
 		self.model = model
+		self.model_type = model_type
 
 		if mqtt is not None:
 			self.mqtt = mqtt
@@ -52,6 +53,11 @@ class AbstractServer(ABC):
 	@abstractmethod
 	def predict(self, req):
 		""" Classifies an image sent via HTTP. """
+		pass
+
+	@abstractmethod
+	def predict_openvino(self, req):
+		""" Classifies an image sent via HTTP using OpenVINO. """
 		pass
 
 	@abstractmethod

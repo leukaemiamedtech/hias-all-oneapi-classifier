@@ -169,6 +169,5 @@ class data(AbstractData):
 		processed = (np.array(processed) - 0) / 255.0
 		processed = processed.transpose((2, 0, 1))
 		processed = processed.reshape((n, h, w, c))
-		processed = processed[::-1]
 
 		return processed

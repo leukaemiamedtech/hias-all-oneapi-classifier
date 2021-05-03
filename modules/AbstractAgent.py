@@ -34,8 +34,9 @@ import threading
 from abc import ABC, abstractmethod
 
 from modules.helpers import helpers
-from modules.model import model
 from modules.mqtt import mqtt
+from modules.model import model
+#from modules.model_openvino import model_openvino
 
 from threading import Thread
 
@@ -66,8 +67,7 @@ class AbstractAgent(ABC):
 		self.helpers = helpers("Agent")
 		self.confs = self.helpers.confs
 		self.credentials = self.helpers.credentials
-
-		self.model = model(self.helpers)
+		self.model_type = None
 
 		self.helpers.logger.info("Agent initialization complete.")
 
@@ -109,11 +109,18 @@ class AbstractAgent(ABC):
 		cpu = psutil.cpu_percent()
 		mem = psutil.virtual_memory()[2]
 		hdd = psutil.disk_usage('/').percent
-		tmp = psutil.sensors_temperatures()['coretemp'][0].current
+
+		if self.model_type == "IR":
+			tmp = psutil.sensors_temperatures()['cpu_thermal'][0].current
+		else:
+			tmp = psutil.sensors_temperatures()['coretemp'][0].current
 		r = requests.get('http://ipinfo.io/json?token=' +
 					self.helpers.credentials["iotJumpWay"]["ipinfo"])
 		data = r.json()
-		location = data["loc"].split(',')
+		if data["status"] != 403:
+			location = data["loc"].split(',')
+		else:
+			location = [0, 0]
 
 		self.mqtt.publish("Life", {
 			"CPU": float(cpu),
@@ -132,6 +139,11 @@ class AbstractAgent(ABC):
 
 		# Life thread
 		threading.Timer(10.0, self.life).start()
+
+	@abstractmethod
+	def set_model(self):
+		""" Creates & trains the model. """
+		pass
 
 	@abstractmethod
 	def train(self):
@@ -156,9 +168,4 @@ class AbstractAgent(ABC):
 	@abstractmethod
 	def inference_http(self):
 		""" Loads model and classifies test data via HTTP requests """
-		pass
-
-	@abstractmethod
-	def start(self):
-		"""Starts the HIAS AI Agent """
 		pass

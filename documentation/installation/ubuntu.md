@@ -17,7 +17,10 @@
 	- [Clone The Repository](#clone-the-repository)
 		- [Developer Forks](#developer-forks)
 	- [Setup File](#setup-file)
-	- [Continue](#continue)
+- [HIAS](#hias)
+	- [AI Model](#ai-model)
+	- [AI Agent](#ai-agent)
+- [Continue](#continue)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
 - [Versioning](#versioning)
@@ -100,6 +103,54 @@ All other software requirements are included in **scripts/install.sh**. You can 
  sh scripts/install.sh
  conda deactivate
 ```
+
+&nbsp;
+
+# HIAS
+
+This device is a HIAS AI Agent and uses the HIAS MQTT Broker to communicate with the HIAS network. To setup an AI Agent on the HIAS network, head to the HIAS UI.
+
+The HIAS network is powered by a context broker that stores contextual data and exposes the data securely to authenticated HIAS applications and devices.
+
+Each HIAS AI Agent & AI Model has a JSON representation stored in the HIAS Context Broker that holds their contextual information.
+
+## AI Model
+
+A HIAS AI Model is a JSON representation of an Artificial Intelligence model used by the HIAS network.
+
+First you need to set a HIAS AI Model up in the HIAS UI. Navigate to **AI->Models->Create** to create a HIAS AI Model. A future release of HIAS will provide the functionality to import the HIAS JSON representation of the AI Model, but for now you have to manually create the AI Model in the UI.
+
+![HIAS AI Model](../../assets/images/hias-ai-model.jpg)
+
+Once you have completed the form and submitted it, you can find the newly created AI Model by navigating to **AI->Models->List** and clicking on the relevant Model.
+
+On the HIAS AI Model page you will be able to update the contextual data for the model, and also find the JSON representation.
+
+![HIAS AI Model](../../assets/images/hias-ai-model-edit.jpg)
+
+## AI Agent
+
+A HIAS AI Agent is a bridge between HIAS devices and applications, and HIAS IoT Agents. The AI Agents process incoming data by passing it through HIAS AI Models and returning the response back to the requesting device/application.
+
+As with AI Models, AI Agents have an entry in the HIAS Context Broker and a JSON representation stored on the network.
+
+You will now need to create your HIAS AI Agent and retrieve the credentials required by your Acute Lymphoblastic Leukemia oneAPI Classifier. Navigate to **AI->Agents->Create** to create a HIAS AI Model.
+
+![HIAS AI Agent](../../assets/images/hias-ai-agent.jpg)
+
+**MAKE SURE YOU SELECT THE PREVIOUSLY CREATED HIAS AI MODEL**
+
+Once you have completed the form and submitted it, you can find the newly created AI Agent by navigating to **AI->Agents->List** and clicking on the relevant Agent.
+
+On the HIAS AI Agent page you will be able to update the contextual data for the agent, and also find the JSON representation.
+
+![HIAS AI Agent](../../assets/images/hias-ai-agent-edit.jpg)
+
+You now need to download the credentials required to connect the Acute Lymphoblastic Leukemia oneAPI Classifier to the HIAS network.
+
+Click on the **Agent Credentials** section to download the credentials file. This should open your file browser, navigate to the **Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/configuration/** directory and save the file as **credentials.json**.
+
+&nbsp;
 
 # Continue
 When you are ready to continue, activate your Anaconda environment:

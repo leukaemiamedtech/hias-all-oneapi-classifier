@@ -40,6 +40,8 @@ from modules.AbstractAgent import AbstractAgent
 
 from modules.helpers import helpers
 from modules.server import server
+from modules.model import model
+#from modules.model_openvino import model_openvino
 
 
 class agent(AbstractAgent):
@@ -59,10 +61,27 @@ class agent(AbstractAgent):
 		self.model.train()
 		self.model.evaluate()
 
+	def set_model(self, mtype):
+
+		self.model_type = mtype
+		if self.model_type == "CNN":
+			self.model = model(self.helpers)
+		elif self.model_type == "IR":
+			self.model = model_openvino(self.helpers)
+
 	def load_model(self):
 		""" Loads the trained model """
 
 		self.model.load()
+
+	def server(self):
+		""" Loads the API server """
+
+		self.mqtt_start()
+
+		self.load_model()
+		self.server = server(self.helpers, self.model, self.model_type, self.mqtt)
+		self.server.start()
 
 	def inference(self):
 		""" Loads model and classifies test data locally """
@@ -70,22 +89,10 @@ class agent(AbstractAgent):
 		self.load_model()
 		self.model.test()
 
-	def server(self):
-		""" Loads the API server """
-
-		self.mqtt_start()
-		self.load_model()
-		self.server = server(self.helpers, self.model, self.mqtt)
-		self.server.start()
-
 	def inference_http(self):
 		""" Loads model and classifies test data via HTTP requests """
 
 		self.model.test_http()
-
-	def start(self, mode):
-		"""Starts the AI Agent """
-		pass
 
 	def signal_handler(self, signal, frame):
 		self.helpers.logger.info("Disconnecting")
@@ -108,15 +115,31 @@ def main():
 	mode = sys.argv[1]
 
 	if mode == "train":
+		agent.set_model("CNN")
 		agent.train()
 
 	elif mode == "classify":
+		agent.set_model("CNN")
 		agent.inference()
 
 	elif mode == "server":
+		agent.set_model("CNN")
 		agent.server()
 
 	elif mode == "classify_http":
+		agent.set_model("CNN")
+		agent.inference_http()
+
+	elif mode == "classify_openvino":
+		agent.set_model("IR")
+		agent.inference()
+
+	elif mode == "server_openvino":
+		agent.set_model("IR")
+		agent.server()
+
+	elif mode == "classify_openvino_http":
+		agent.set_model("IR")
 		agent.inference_http()
 
 

@@ -33,6 +33,8 @@ import os
 import requests
 import time
 
+import numpy as np
+
 from modules.AbstractServer import AbstractServer
 
 from io import BytesIO
@@ -57,6 +59,21 @@ class server(AbstractServer):
 
 		return self.model.predict(img)
 
+	def predict_openvino(self, req):
+		""" Classifies an image sent via HTTP using OpenVINO. """
+
+		if len(req.files) != 0:
+			img = np.fromstring(req.files['file'].read(), np.uint8)
+		else:
+			img = np.fromstring(req.data, np.uint8)
+
+		img = cv2.imdecode(img, cv2.IMREAD_UNCHANGED)
+
+		img = self.model.resize(img)
+		self.model.setBlob(img)
+
+		return self.model.predict()
+
 	def start(self):
 		""" Starts the server. """
 
@@ -74,7 +91,10 @@ class server(AbstractServer):
 			})
 
 			message = ""
-			prediction = self.predict(request)
+			if self.model_type == "CNN":
+				prediction = self.predict(request)
+			else:
+				prediction = self.predict_openvino(request)
 
 			if prediction == 1:
 				message = "Acute Lymphoblastic Leukemia detected!"

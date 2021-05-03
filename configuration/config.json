@@ -7,7 +7,10 @@
             "train",
             "classify",
             "server",
-            "classify_http"
+            "classify_http",
+            "classify_openvino",
+            "server_openvino",
+            "classify_openvino_http"
         ]
     },
     "data": {
@@ -67,5 +70,12 @@
         "epochs": 150,
         "learning_rate_adam": 1e-4,
         "val_steps": 10
+    },
+    "rpi4": {
+        "freezing_log_dir": "model/freezing",
+        "frozen": "frozen.pb",
+        "ir": "model/ir/frozen.xml",
+        "inScaleFactor": 0.007843,
+        "meanVal": 0
     }
 }
