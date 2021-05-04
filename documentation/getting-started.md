@@ -35,7 +35,7 @@
 - [HIAS UI](#hias-ui)
     - [NGINX](#nginx)
     - [Inference](#inference)
-      - [Verification](#server-testing)
+      - [Verification](#verification)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
 - [Versioning](#versioning)
