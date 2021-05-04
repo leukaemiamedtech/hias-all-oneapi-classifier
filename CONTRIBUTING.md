@@ -73,10 +73,19 @@ If you are going to be contributing code or documentation to the repository you 
 
 ```
 - Project Root (Directory)
+    - config (Directory) *
+        - config.json (File) *
+        - credentials.json (File) *
     - modules (Directory) *
+        - AbstractAgent.py (File) *
+        - AbstractData.py (File) *
+        - AbstractModel.py (File) *
+        - AbstractServer.py (File) *
         - helpers.py (File) *
         - data.py (File) *
         - model.py (File) *
+        - mqtt.py (File) *
+        - server.py (File) *
     - documentation (Directory)
         - installation (Directory)
             - Ubuntu
@@ -89,6 +98,10 @@ If you are going to be contributing code or documentation to the repository you 
             - images (Directory)
             - videos (Directory)
     - model
+        - data (Directory) *
+            - test (Directory) *
+            - train (Directory) *
+            - plots (Directory) *
         - model.json (File)
         - weights.h (File)
     - scripts

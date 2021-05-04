@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<mapping>
+	<map>
+		<framework name="Identity" out_port_id="0"/>
+		<IR id="25" name="AllOneApiClassifier/activation/Softmax" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/activation/Softmax" out_port_id="0"/>
+		<IR id="25" name="AllOneApiClassifier/activation/Softmax" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/conv2d/Conv2D" out_port_id="0"/>
+		<IR id="2" name="AllOneApiClassifier/conv2d/Conv2D" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/conv2d_1/Conv2D/ReadVariableOp" out_port_id="0"/>
+		<IR id="6" name="AllOneApiClassifier/conv2d_1/Conv2D/ReadVariableOp/Output_0/Data__const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/dense/BiasAdd" out_port_id="0"/>
+		<IR id="24" name="AllOneApiClassifier/dense/BiasAdd/Add" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/max_pooling2d/MaxPool" out_port_id="0"/>
+		<IR id="13" name="AllOneApiClassifier/max_pooling2d/MaxPool/Transpose" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/conv2d/Conv2D/ReadVariableOp" out_port_id="0"/>
+		<IR id="1" name="x/reverse_input_channels/Concat797_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/flatten/Reshape" out_port_id="0"/>
+		<IR id="21" name="AllOneApiClassifier/flatten/Reshape" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/conv2d_1/Conv2D" out_port_id="0"/>
+		<IR id="7" name="AllOneApiClassifier/conv2d_1/Conv2D" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/dense/MatMul/ReadVariableOp" out_port_id="0"/>
+		<IR id="15" name="AllOneApiClassifier/dense/MatMul/1_port_transpose597_const" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/conv2d_1/Relu" out_port_id="0"/>
+		<IR id="10" name="AllOneApiClassifier/conv2d_1/Relu" out_port_id="1"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/conv2d/BiasAdd" out_port_id="0"/>
+		<IR id="4" name="AllOneApiClassifier/conv2d/BiasAdd/Add" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/flatten/Const" out_port_id="0"/>
+		<IR id="20" name="AllOneApiClassifier/dense/MatMul/ReadVariableOp/MinusOne/shapes_concat" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/dense/MatMul" out_port_id="0"/>
+		<IR id="22" name="AllOneApiClassifier/dense/MatMul" out_port_id="2"/>
+	</map>
+	<map>
+		<framework name="AllOneApiClassifier/conv2d_1/BiasAdd" out_port_id="0"/>
+		<IR id="9" name="AllOneApiClassifier/conv2d_1/BiasAdd/Add" out_port_id="2"/>
+	</map>
+</mapping>
