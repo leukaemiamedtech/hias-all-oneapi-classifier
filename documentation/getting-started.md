@@ -31,6 +31,11 @@
     - [Intel® Movidius™ Neural Compute Stick 2](#intel-movidius-neural-compute-stick-2)
     - [Software Install](#software-install)
     - [Local Testing](#local-testing)
+    - [Server Testing](#server-testing)
+- [HIAS UI](#hias-ui)
+    - [NGINX](#nginx)
+    - [Inference](#inference)
+      - [Verification](#server-testing)
 - [Contributing](#contributing)
   - [Contributors](#contributors)
 - [Versioning](#versioning)
@@ -114,6 +119,9 @@ To specify which test images to use modify the [configuration/config.json](../co
 - Change **agent->server** to the local IP of your training device.
 - Change **agent->port** to a different number.
 
+<details><summary><b>View file contents</b></summary>
+<p>
+
 ```
 {
     "agent": {
@@ -187,6 +195,9 @@ To specify which test images to use modify the [configuration/config.json](../co
     }
 }
 ```
+
+</p>
+</details><br />
 
 The configuration object contains 4 Json Objects (agent, data, model and train). Agent has the information used to set up your server, data has the configuration related to preparing the training and validation data, model holds the model file paths, and train holds the training parameters.
 
@@ -373,6 +384,9 @@ Non-trainable params: 0
 
 Finally the application will start processing the test images and the results will be displayed in the console.
 
+<details><summary><b>View output</b></summary>
+<p>
+
 ```
 2021-05-03 22:56:09,704 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.1585226058959961 seconds.
 2021-05-03 22:56:09,739 - Agent - INFO - Loaded test image model/data/test/Im028_1.jpg
@@ -420,6 +434,8 @@ Finally the application will start processing the test images and the results wi
 2021-05-03 22:56:11,409 - Agent - INFO - False Negatives: 1
 2021-05-03 22:56:11,409 - Agent - INFO - Total Time Taken: 1.8600921630859375
 ```
+</p>
+</details><br />
 
 In the current terminal, now use the following command:
 
@@ -435,7 +451,8 @@ python3 agenty.py classify_http
 
 This will start agent in HTTP Inference mode. The agent will loop through the testing data and send each image to the server for classification, the results are then displayed in the console.
 
-```
+<details><summary><b>View output</b></summary>
+<p>```
 2021-05-03 23:04:49,099 - Agent - INFO - Sending request for: model/data/test/Im063_1.jpg
 2021-05-03 23:04:49,594 - Agent - INFO - Acute Lymphoblastic Leukemia correctly detected (True Positive) in 0.4954085350036621 seconds.
 2021-05-03 23:04:49,594 - Agent - INFO - Sending request for: model/data/test/Im028_1.jpg
@@ -483,6 +500,9 @@ This will start agent in HTTP Inference mode. The agent will loop through the te
 2021-05-03 23:04:56,174 - Agent - INFO - False Negatives: 1
 2021-05-03 23:04:56,174 - Agent - INFO - Total Time Taken: 7.072249174118042
 ```
+</p>
+</details><br />
+
 # OpenVINO Intermediate Representation
 
 Now you need to convert your frozen model to an Intermediate Representation. To do this, use the following command, replacing **YourProjectPath** with the path to your project home.
@@ -546,25 +566,7 @@ In **modules/AbstractAgent.py** do the same changes to lines 38 and 39.
 39 from modules.model_openvino import model_openvino
 ```
 
-In **configuration/config.json** change the IP of the server (agent->server) to match the IP of your Raspberry Pi.
-
-```
-
-    "agent": {
-        "cores": 8,
-        "server": "Add Server IP",
-        "port": 1234,
-        "params": [
-            "train",
-            "classify",
-            "server",
-            "classify_http",
-            "classify_openvino",
-            "server_openvino",
-            "classify_openvino_http"
-        ]
-    },
-```
+In **configuration/credentials.json** change the IP of the server (server->ip) to match the IP of your Raspberry Pi and  (server->port) to match the port you want to run on, remember to make sure the port is open.
 
 ## Software Install
 
@@ -587,6 +589,8 @@ python3 agenty.py classify_openvino
 
 You should see the application will start processing the test images and the results will be displayed in the console.
 
+<details><summary><b>View output</b></summary>
+<p>
 ```
 2021-05-03 23:43:22,310 - Agent - INFO - OpenVINO loaded.
 2021-05-03 23:43:22,633 - Agent - INFO - Loaded test image model/data/test/Im099_0.jpg
@@ -636,6 +640,9 @@ You should see the application will start processing the test images and the res
 2021-05-03 23:43:29,699 - Agent - INFO - False Negatives: 1
 2021-05-03 23:43:29,699 - Agent - INFO - Total Time Taken: 7.379864454269409
 ```
+</p>
+</details><br />
+
 
 ## Server Testing
 
@@ -653,6 +660,8 @@ python3 agenty.py classify_openvino_http
 
 This will start agent in HTTP Inference mode. The agent will loop through the testing data and send each image to the server for classification, the results are then displayed in the console.
 
+<details><summary><b>View output</b></summary>
+<p>
 ```
 2021-05-03 23:50:26,485 - Agent - INFO - OpenVINO class initialization complete.
 2021-05-03 23:50:26,485 - Agent - INFO - Sending request for: model/data/test/Im099_0.jpg
@@ -702,6 +711,53 @@ This will start agent in HTTP Inference mode. The agent will loop through the te
 2021-05-03 23:50:49,386 - Agent - INFO - False Negatives: 1
 2021-05-03 23:50:49,386 - Agent - INFO - Total Time Taken: 22.89105796813965
 ```
+</p>
+</details><br />
+
+&nbsp;
+
+# HIAS UI
+
+Now that your classifier is setup and running, you can interact with it via the HIAS UI, and from other HIAS integrated applications. Before you can do so there is a final step to take on your server.
+
+![HIAS AI Inference](../assets/images/hias-ai-inference-endpoint.jpg)
+
+Head to the AI Agent page for your classifier on HIAS **(AI->Agents->List->Your Agent)**. On the edit page you will see the **Inference Endpoint**, you need to copy that value.
+
+## NGINX
+
+Now in console open the NGINX config file:
+
+```
+sudo nano /etc/nginx/sites-available/default
+```
+Find **ADD NEW ENDPOINTS AFTER THIS NOTICE**, and add the following, replacing **YourEndpoint** with your inference endpoint value, and  **YourIp/YourPort** with the IP/port of your Raspberry Pi.
+```
+location ~ ^/AI/YourEndpoint/(.*)$ {
+                auth_basic "Restricted";
+                auth_basic_user_file /etc/nginx/security/htpasswd;
+                proxy_pass http://YourIp:YourPort/$1;
+            }
+```
+Save the file and exit, then run the following command:
+
+```
+sudo systemctl reload nginx
+```
+
+## Inference
+
+Now you are set up to communicate with the Acute Lymphoblastic Leukemia oneAPI Classifier from HIAS. Head to **(AI->Agents->List)** and then click on the **Inference** link.
+
+![HIAS AI Inference](../assets/images/hias-ai-inference.jpg)
+
+Once on the Inference page upload the twenty test images. Now make sure the server is running on the RPI and click the data to send it to the Acute Lymphoblastic Leukemia oneAPI Classifier for classification.
+
+### Verfication
+
+As we know from the filenames in advance whether an image is negative or positive, we can compare the classification with the file name to check if a classification is a true/false positive, or a true/false negative. In the Diagnosis Results area Diagnosis represents the classification provided by the Acute Lymphoblastic Leukemia oneAPI Classifier, and Result provides the verification result. You should get the same results as when testing earlier back in the tutorial. The UI should 1 false negative and one false positive.
+
+&nbsp;
 
 # Contributing
 
