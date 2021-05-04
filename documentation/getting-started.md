@@ -753,7 +753,7 @@ Now you are set up to communicate with the Acute Lymphoblastic Leukemia oneAPI C
 
 Once on the Inference page upload the twenty test images. Now make sure the server is running on the RPI and click the data to send it to the Acute Lymphoblastic Leukemia oneAPI Classifier for classification.
 
-### Verfication
+### Verification
 
 As we know from the filenames in advance whether an image is negative or positive, we can compare the classification with the file name to check if a classification is a true/false positive, or a true/false negative. In the Diagnosis Results area Diagnosis represents the classification provided by the Acute Lymphoblastic Leukemia oneAPI Classifier, and Result provides the verification result. You should get the same results as when testing earlier back in the tutorial. The UI should 1 false negative and one false positive.
 
