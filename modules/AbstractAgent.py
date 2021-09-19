@@ -4,6 +4,11 @@
 Represents a HIAS AI Agent. HIAS AI Agents process data using local AI
 models and communicate with HIAS IoT Agents using the MQTT protocol.
 
+MIT License
+
+Copyright (c) 2021 Asociación de Investigacion en Inteligencia Artificial
+Para la Leucemia Peter Moss
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -23,7 +28,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Contributors:
-- Adam Milton-Barker - First version - 2021-5-1
+- Adam Milton-Barker
 
 """
 
@@ -35,137 +40,130 @@ from abc import ABC, abstractmethod
 
 from modules.helpers import helpers
 from modules.mqtt import mqtt
-from modules.model import model
-#from modules.model_openvino import model_openvino
 
 from threading import Thread
 
 
 class AbstractAgent(ABC):
-	""" Abstract class representing a HIAS AI Agent.
+    """ Abstract class representing a HIAS AI Agent.
 
-	This object represents a HIAS AI Agent. HIAS AI Agents
-	process data using local AI models and communicate
-	with HIAS IoT Agents using the MQTT protocol.
+    This object represents a HIAS AI Agent. HIAS AI Agents
+    process data using local AI models and communicate
+    with HIAS IoT Agents using the MQTT protocol.
+    """
 
-	Attributes
-	----------
-	NA
+    def __init__(self):
+        "Initializes the abstract_agent object."
+        super().__init__()
 
-	Methods
-	-------
-	mqtt_conn()
-		Creates a MQTT connection with the HIAS iotJumpWay
-		private MQTT broker.
-	"""
+        self.mqtt = None
+        self.helpers = helpers("Agent")
+        self.confs = self.helpers.confs
+        self.credentials = self.helpers.credentials
+        self.model_type = None
 
-	def __init__(self):
-		"Initializes the abstract_agent object."
-		super().__init__()
+        self.helpers.logger.info(
+            "Agent initialization complete.")
 
-		self.mqtt = None
-		self.helpers = helpers("Agent")
-		self.confs = self.helpers.confs
-		self.credentials = self.helpers.credentials
-		self.model_type = None
+    def mqtt_conn(self, credentials):
+        """ Starts the HIAS iotJumpWay MQTT broker connection. """
 
-		self.helpers.logger.info("Agent initialization complete.")
+        self.mqtt = mqtt(
+            self.helpers, "Agent", credentials)
+        self.mqtt.configure()
+        self.mqtt.start()
 
-	def mqtt_conn(self, credentials):
-		""" Starts the HIAS iotJumpWay MQTT broker connection. """
+        self.mqtt.subscribe()
+        self.mqtt.commands_callback = self.mqtt_commands
 
-		self.mqtt = mqtt(self.helpers, "Agent", credentials)
-		self.mqtt.configure()
-		self.mqtt.start()
+        self.agent_threading()
 
-		self.mqtt.subscribe()
-		self.mqtt.commands_callback = self.mqtt_commands
+        self.helpers.logger.info(
+            "HIAS iotJumpWay MQTT Broker connection created and subscriptions created.")
 
-		self.agent_threading()
+    def mqtt_start(self):
+        """ Starts the HIAS iotJumpWay MQTT broker connection. """
 
-		self.helpers.logger.info(
-			"HIAS iotJumpWay MQTT Broker connection created and subscriptions created.")
+        self.mqtt_conn({
+            "host": self.credentials["iotJumpWay"]["host"],
+            "port": self.credentials["iotJumpWay"]["port"],
+            "location": self.credentials["iotJumpWay"]["location"],
+            "zone": self.credentials["iotJumpWay"]["zone"],
+            "entity": self.credentials["iotJumpWay"]["entity"],
+            "name": self.credentials["iotJumpWay"]["name"],
+            "un": self.credentials["iotJumpWay"]["un"],
+            "up": self.credentials["iotJumpWay"]["up"]
+        })
 
-	def mqtt_start(self):
-		""" Starts the HIAS iotJumpWay MQTT broker connection. """
+    def mqtt_commands(self):
+        """ Called in the event of a command message from the HIAS iotJumpWay MQTT broker. """
 
-		self.mqtt_conn({
-			"host": self.credentials["iotJumpWay"]["host"],
-			"port": self.credentials["iotJumpWay"]["port"],
-			"location": self.credentials["iotJumpWay"]["location"],
-			"zone": self.credentials["iotJumpWay"]["zone"],
-			"entity": self.credentials["iotJumpWay"]["entity"],
-			"name": self.credentials["iotJumpWay"]["name"],
-			"un": self.credentials["iotJumpWay"]["un"],
-			"up": self.credentials["iotJumpWay"]["up"]
-		})
+    def life(self):
+        """ Publishes entity statistics to HIAS. """
 
-	def mqtt_commands(self):
-		""" Called in the event of a command message from the HIAS iotJumpWay MQTT broker. """
+        cpu = psutil.cpu_percent()
+        mem = psutil.virtual_memory()[2]
+        hdd = psutil.disk_usage('/').percent
 
-	def life(self):
-		""" Publishes entity statistics to HIAS. """
+        if self.model_type == "IR":
+            tmp = psutil.sensors_temperatures()['cpu_thermal'][0].current
+        else:
+            tmp = psutil.sensors_temperatures()['coretemp'][0].current
+        r = requests.get('http://ipinfo.io/json?token=' +
+                    self.helpers.credentials["iotJumpWay"]["ipinfo"])
+        data = r.json()
 
-		cpu = psutil.cpu_percent()
-		mem = psutil.virtual_memory()[2]
-		hdd = psutil.disk_usage('/').percent
+        if "loc" in data:
+            location = data["loc"].split(',')
+        else:
+            location = [0, 0]
 
-		if self.model_type == "IR":
-			tmp = psutil.sensors_temperatures()['cpu_thermal'][0].current
-		else:
-			tmp = psutil.sensors_temperatures()['coretemp'][0].current
-		r = requests.get('http://ipinfo.io/json?token=' +
-					self.helpers.credentials["iotJumpWay"]["ipinfo"])
-		data = r.json()
-		if data["status"] != 403:
-			location = data["loc"].split(',')
-		else:
-			location = [0, 0]
+        self.mqtt.publish("Life", {
+            "CPU": float(cpu),
+            "Memory": float(mem),
+            "Diskspace": float(hdd),
+            "Temperature": float(tmp),
+            "Latitude": float(location[0]),
+            "Longitude": float(location[1])
+        })
 
-		self.mqtt.publish("Life", {
-			"CPU": float(cpu),
-			"Memory": float(mem),
-			"Diskspace": float(hdd),
-			"Temperature": float(tmp),
-			"Latitude": float(location[0]),
-			"Longitude": float(location[1])
-		})
+        self.helpers.logger.info(
+            "Agent life statistics published.")
+        threading.Timer(300.0, self.life).start()
 
-		self.helpers.logger.info("Agent life statistics published.")
-		threading.Timer(300.0, self.life).start()
+    def agent_threading(self):
+        """ Creates required module threads. """
 
-	def agent_threading(self):
-		""" Creates required module threads. """
+        # Life thread
+        threading.Timer(
+            10.0, self.life).start()
 
-		# Life thread
-		threading.Timer(10.0, self.life).start()
+    @abstractmethod
+    def set_model(self):
+        """ Creates & trains the model. """
+        pass
 
-	@abstractmethod
-	def set_model(self):
-		""" Creates & trains the model. """
-		pass
+    @abstractmethod
+    def train(self):
+        """ Creates & trains the model. """
+        pass
 
-	@abstractmethod
-	def train(self):
-		""" Creates & trains the model. """
-		pass
+    @abstractmethod
+    def load_model(self):
+        """ Loads model and classifies test data locally """
+        pass
 
-	@abstractmethod
-	def load_model(self):
-		""" Loads model and classifies test data locally """
-		pass
+    @abstractmethod
+    def inference(self):
+        """ Loads model and classifies test data """
+        pass
 
-	@abstractmethod
-	def inference(self):
-		""" Loads model and classifies test data """
-		pass
+    @abstractmethod
+    def server(self):
+        """ Loads the API server """
+        pass
 
-	@abstractmethod
-	def server(self):
-		""" Loads the API server """
-		pass
-
-	@abstractmethod
-	def inference_http(self):
-		""" Loads model and classifies test data via HTTP requests """
-		pass
+    @abstractmethod
+    def inference_http(self):
+        """ Loads model and classifies test data via HTTP requests """
+        pass

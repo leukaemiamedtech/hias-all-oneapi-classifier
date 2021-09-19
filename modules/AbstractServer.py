@@ -3,6 +3,11 @@
 
 Abstract class for the HIAS IoT Agent server/API.
 
+MIT License
+
+Copyright (c) 2021 Asociación de Investigacion en Inteligencia Artificial
+Para la Leucemia Peter Moss
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -22,45 +27,46 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Contributors:
-- Adam Milton-Barker - First version - 2021-5-2
+- Adam Milton-Barker
 
 """
 
 from abc import ABC, abstractmethod
 
 class AbstractServer(ABC):
-	""" Server/API abstract class.
+    """ Server/API abstract class.
 
-	Abstract class for the HIAS IoT Agent server/API.
-	"""
+    Abstract class for the HIAS IoT Agent server/API.
+    """
 
-	def __init__(self, helpers, model, model_type, mqtt):
-		"Initializes the AbstractModel object."
-		super().__init__()
+    def __init__(self, helpers, model, model_type, mqtt):
+        "Initializes the AbstractModel object."
+        super().__init__()
 
-		self.helpers = helpers
-		self.confs = self.helpers.confs
+        self.helpers = helpers
+        self.confs = self.helpers.confs
 
-		self.model = model
-		self.model_type = model_type
+        self.model = model
+        self.model_type = model_type
 
-		if mqtt is not None:
-			self.mqtt = mqtt
+        if mqtt is not None:
+            self.mqtt = mqtt
 
-		self.helpers.logger.info("Agent initialization complete.")
+        self.helpers.logger.info(
+            "Agent initialization complete.")
 
 
-	@abstractmethod
-	def predict(self, req):
-		""" Classifies an image sent via HTTP. """
-		pass
+    @abstractmethod
+    def predict(self, req):
+        """ Classifies an image sent via HTTP. """
+        pass
 
-	@abstractmethod
-	def predict_openvino(self, req):
-		""" Classifies an image sent via HTTP using OpenVINO. """
-		pass
+    @abstractmethod
+    def predict_openvino(self, req):
+        """ Classifies an image sent via HTTP using OpenVINO. """
+        pass
 
-	@abstractmethod
-	def start(self, img_path):
-		""" Sends image to the inference API endpoint. """
-		pass
+    @abstractmethod
+    def start(self, img_path):
+        """ Sends image to the inference API endpoint. """
+        pass

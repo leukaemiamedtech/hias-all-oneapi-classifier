@@ -28,76 +28,75 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 Contributors:
-- Adam Milton-Barker - First version - 2021-5-1
+- Adam Milton-Barker
 
 """
 
 import sys
 
-from abc import ABC, abstractmethod
-
 from modules.AbstractAgent import AbstractAgent
 
 from modules.helpers import helpers
 from modules.server import server
-from modules.model import model
-#from modules.model_openvino import model_openvino
 
 
 class agent(AbstractAgent):
-	""" ALL oneAPI Classifier 2021 HIAS AI Agent
+    """ HIAS ALL oneAPI Classifier
 
-	Represents a HIAS AI Agent that processes data
-	using the ALL oneAPI Classifier 2021 model.
-	"""
+    Represents a HIAS AI Agent that processes data
+    using the HIAS ALL oneAPI Classifier model.
+    """
 
-	def train(self):
-		""" Creates & trains the model. """
+    def train(self):
+        """ Creates & trains the model. """
 
-		self.mqtt_start()
+        self.mqtt_start()
 
-		self.model.prepare_data()
-		self.model.prepare_network()
-		self.model.train()
-		self.model.evaluate()
+        self.model.prepare_data()
+        self.model.prepare_network()
+        self.model.train()
+        self.model.evaluate()
 
-	def set_model(self, mtype):
+    def set_model(self, model_type):
 
-		self.model_type = mtype
-		if self.model_type == "CNN":
-			self.model = model(self.helpers)
-		elif self.model_type == "IR":
-			self.model = model_openvino(self.helpers)
+        self.model_type = model_type
+        if self.model_type == "CNN":
+            from modules.model import model
+            self.model = model(self.helpers)
+        elif self.model_type == "IR":
+            from modules.model_openvino import model_openvino
+            self.model = model_openvino(self.helpers)
 
-	def load_model(self):
-		""" Loads the trained model """
+    def load_model(self):
+        """ Loads the trained model """
 
-		self.model.load()
+        self.model.load()
 
-	def server(self):
-		""" Loads the API server """
+    def server(self):
+        """ Loads the API server """
 
-		self.mqtt_start()
+        self.mqtt_start()
+        self.load_model()
+        self.server = server(
+            self.helpers, self.model,
+            self.model_type, self.mqtt)
+        self.server.start()
 
-		self.load_model()
-		self.server = server(self.helpers, self.model, self.model_type, self.mqtt)
-		self.server.start()
+    def inference(self):
+        """ Loads model and classifies test data locally """
 
-	def inference(self):
-		""" Loads model and classifies test data locally """
+        self.load_model()
+        self.model.test()
 
-		self.load_model()
-		self.model.test()
+    def inference_http(self):
+        """ Loads model and classifies test data via HTTP requests """
 
-	def inference_http(self):
-		""" Loads model and classifies test data via HTTP requests """
+        self.model.test_http()
 
-		self.model.test_http()
-
-	def signal_handler(self, signal, frame):
-		self.helpers.logger.info("Disconnecting")
-		self.mqtt.disconnect()
-		sys.exit(1)
+    def signal_handler(self, signal, frame):
+        self.helpers.logger.info("Disconnecting")
+        self.mqtt.disconnect()
+        sys.exit(1)
 
 
 agent = agent()
@@ -105,43 +104,43 @@ agent = agent()
 
 def main():
 
-	if len(sys.argv) < 2:
-		print("You must provide an argument")
-		exit()
-	elif sys.argv[1] not in agent.helpers.confs["agent"]["params"]:
-		print("Mode not supported! server, train or inference")
-		exit()
+    if len(sys.argv) < 2:
+        print("You must provide an argument")
+        exit()
+    elif sys.argv[1] not in agent.helpers.confs["agent"]["params"]:
+        print("Mode not supported! server, train or inference")
+        exit()
 
-	mode = sys.argv[1]
+    mode = sys.argv[1]
 
-	if mode == "train":
-		agent.set_model("CNN")
-		agent.train()
+    if mode == "train":
+        agent.set_model("CNN")
+        agent.train()
 
-	elif mode == "classify":
-		agent.set_model("CNN")
-		agent.inference()
+    elif mode == "classify":
+        agent.set_model("CNN")
+        agent.inference()
 
-	elif mode == "server":
-		agent.set_model("CNN")
-		agent.server()
+    elif mode == "server":
+        agent.set_model("CNN")
+        agent.server()
 
-	elif mode == "classify_http":
-		agent.set_model("CNN")
-		agent.inference_http()
+    elif mode == "classify_http":
+        agent.set_model("CNN")
+        agent.inference_http()
 
-	elif mode == "classify_openvino":
-		agent.set_model("IR")
-		agent.inference()
+    elif mode == "classify_openvino":
+        agent.set_model("IR")
+        agent.inference()
 
-	elif mode == "server_openvino":
-		agent.set_model("IR")
-		agent.server()
+    elif mode == "server_openvino":
+        agent.set_model("IR")
+        agent.server()
 
-	elif mode == "classify_openvino_http":
-		agent.set_model("IR")
-		agent.inference_http()
+    elif mode == "classify_openvino_http":
+        agent.set_model("IR")
+        agent.inference_http()
 
 
 if __name__ == "__main__":
-	main()
+    main()

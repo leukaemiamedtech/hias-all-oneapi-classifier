@@ -1,8 +1,6 @@
 {
     "agent": {
         "cores": 8,
-        "server": "",
-        "port": 1234,
         "params": [
             "train",
             "classify",
