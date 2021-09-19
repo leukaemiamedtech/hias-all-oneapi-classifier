@@ -4,6 +4,11 @@
 Provides the HIAS AI Model with the required required data
 processing functionality.
 
+MIT License
+
+Copyright (c) 2021 Asociación de Investigacion en Inteligencia Artificial
+Para la Leucemia Peter Moss
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -43,131 +48,138 @@ from modules.AbstractData import AbstractData
 from modules.augmentation import augmentation
 
 class data(AbstractData):
-	""" HIAS AI Model Data Class.
+    """ HIAS AI Model Data Class.
 
-	Provides the HIAS AI Model with the required required data
-	processing functionality.
-	"""
+    Provides the HIAS AI Model with the required
+    required data processing functionality.
+    """
 
-	def pre_process(self):
-		""" Processes the images. """
+    def pre_process(self):
+        """ Processes the images. """
 
-		aug = augmentation(self.helpers)
+        aug = augmentation(self.helpers)
 
-		data_dir = pathlib.Path(
-			self.helpers.confs["data"]["train_dir"])
-		data = list(data_dir.glob(
-			'*' + self.helpers.confs["data"]["file_type"]))
+        data_dir = pathlib.Path(
+            self.helpers.confs["data"]["train_dir"])
+        data = list(data_dir.glob(
+            '*' + self.helpers.confs["data"]["file_type"]))
 
-		count = 0
-		neg_count = 0
-		pos_count = 0
+        count = 0
+        neg_count = 0
+        pos_count = 0
 
-		augmented_data = []
-		augmented_labels = []
+        augmented_data = []
+        augmented_labels = []
 
-		for rimage in data:
-			fpath = str(rimage)
-			fname = os.path.basename(rimage)
-			label = 0 if "_0" in fname else 1
+        for rimage in data:
+            fpath = str(rimage)
+            fname = os.path.basename(rimage)
+            label = 0 if "_0" in fname else 1
 
-			image = self.resize(fpath, self.dim)
+            image = self.resize(fpath, self.dim)
 
-			if image.shape[2] == 1:
-				image = np.dstack(
-					[image, image, image])
+            if image.shape[2] == 1:
+                image = np.dstack(
+                    [image, image, image])
 
-			augmented_data.append(image.astype(np.float32)/255.)
-			augmented_labels.append(label)
+            augmented_data.append(image.astype(np.float32)/255.)
+            augmented_labels.append(label)
 
-			augmented_data.append(aug.grayscale(image))
-			augmented_labels.append(label)
+            augmented_data.append(aug.grayscale(image))
+            augmented_labels.append(label)
 
-			augmented_data.append(aug.equalize_hist(image))
-			augmented_labels.append(label)
+            augmented_data.append(aug.equalize_hist(image))
+            augmented_labels.append(label)
 
-			horizontal, vertical = aug.reflection(image)
-			augmented_data.append(horizontal)
-			augmented_labels.append(label)
+            horizontal, vertical = aug.reflection(image)
+            augmented_data.append(horizontal)
+            augmented_labels.append(label)
 
-			augmented_data.append(vertical)
-			augmented_labels.append(label)
+            augmented_data.append(vertical)
+            augmented_labels.append(label)
 
-			augmented_data.append(aug.gaussian(image))
-			augmented_labels.append(label)
+            augmented_data.append(aug.gaussian(image))
+            augmented_labels.append(label)
 
-			augmented_data.append(aug.translate(image))
-			augmented_labels.append(label)
+            augmented_data.append(aug.translate(image))
+            augmented_labels.append(label)
 
-			augmented_data.append(aug.shear(image))
-			augmented_labels.append(label)
+            augmented_data.append(aug.shear(image))
+            augmented_labels.append(label)
 
-			self.data, self.labels = aug.rotation(
-				image, label, augmented_data, augmented_labels)
+            self.data, self.labels = aug.rotation(
+                image, label, augmented_data, augmented_labels)
 
-			if "_0" in fname:
-				neg_count += 9
-			else:
-				pos_count += 9
-			count += 9
+            if "_0" in fname:
+                neg_count += 9
+            else:
+                pos_count += 9
+            count += 9
 
-		self.shuffle()
-		self.convert_data()
-		self.encode_labels()
+        self.shuffle()
+        self.convert_data()
+        self.encode_labels()
 
-		self.helpers.logger.info("Raw data: " + str(count))
-		self.helpers.logger.info("Raw negative data: " + str(neg_count))
-		self.helpers.logger.info("Raw positive data: " + str(pos_count))
-		self.helpers.logger.info("Augmented data: " + str(self.data.shape))
-		self.helpers.logger.info("Labels: " + str(self.labels.shape))
+        self.helpers.logger.info("Raw data: " + str(count))
+        self.helpers.logger.info("Raw negative data: " + str(neg_count))
+        self.helpers.logger.info("Raw positive data: " + str(pos_count))
+        self.helpers.logger.info("Augmented data: " + str(self.data.shape))
+        self.helpers.logger.info("Labels: " + str(self.labels.shape))
 
-		self.get_split()
+        self.get_split()
 
-	def convert_data(self):
-		""" Converts the training data to a numpy array. """
+    def convert_data(self):
+        """ Converts the training data to a numpy array. """
 
-		self.data = np.array(self.data)
-		self.helpers.logger.info("Data shape: " + str(self.data.shape))
+        self.data = np.array(self.data)
+        self.helpers.logger.info(
+            "Data shape: " + str(self.data.shape))
 
-	def encode_labels(self):
-		""" One Hot Encodes the labels. """
+    def encode_labels(self):
+        """ One Hot Encodes the labels. """
 
-		encoder = OneHotEncoder(categories='auto')
+        encoder = OneHotEncoder(categories='auto')
 
-		self.labels = np.reshape(self.labels, (-1, 1))
-		self.labels = encoder.fit_transform(self.labels).toarray()
-		self.helpers.logger.info("Labels shape: " + str(self.labels.shape))
+        self.labels = np.reshape(self.labels, (-1, 1))
+        self.labels = encoder.fit_transform(self.labels).toarray()
+        self.helpers.logger.info(
+            "Labels shape: " + str(self.labels.shape))
 
-	def shuffle(self):
-		""" Shuffles the data and labels. """
+    def shuffle(self):
+        """ Shuffles the data and labels. """
 
-		self.data, self.labels = shuffle(
-			self.data, self.labels, random_state=self.seed)
+        self.data, self.labels = shuffle(
+            self.data, self.labels, random_state=self.seed)
 
-	def get_split(self):
-		""" Splits the data and labels creating training and validation datasets. """
+    def get_split(self):
+        """ Splits the data and labels creating training and validation datasets. """
 
-		self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
-			self.data, self.labels, test_size=0.255, random_state=self.seed)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(
+            self.data, self.labels, test_size=0.255, random_state=self.seed)
 
-		self.helpers.logger.info("Training data: " + str(self.X_train.shape))
-		self.helpers.logger.info("Training labels: " + str(self.y_train.shape))
-		self.helpers.logger.info("Validation data: " + str(self.X_test.shape))
-		self.helpers.logger.info("Validation labels: " + str(self.y_test.shape))
+        self.helpers.logger.info(
+            "Training data: " + str(self.X_train.shape))
+        self.helpers.logger.info(
+            "Training labels: " + str(self.y_train.shape))
+        self.helpers.logger.info(
+            "Validation data: " + str(self.X_test.shape))
+        self.helpers.logger.info(
+            "Validation labels: " + str(self.y_test.shape))
 
-	def resize(self, path, dim):
-		""" Resizes an image to the provided dimensions (dim). """
+    def resize(self, path, dim):
+        """ Resizes an image to the provided dimensions (dim). """
 
-		return cv2.resize(cv2.imread(path), (dim, dim))
+        return cv2.resize(
+            cv2.imread(path), (dim, dim))
 
-	def reshape(self, img):
-		""" Classifies an image sent via HTTP. """
+    def reshape(self, img):
+        """ Classifies an image sent via HTTP. """
 
-		n, c, h, w = [1, 3, self.confs["data"]["dim"],
-					self.confs["data"]["dim"]]
-		processed = img.resize((h, w), resample=Image.BILINEAR)
-		processed = (np.array(processed) - 0) / 255.0
-		processed = processed.transpose((2, 0, 1))
-		processed = processed.reshape((n, h, w, c))
+        n, c, h, w = [1, 3, self.confs["data"]["dim"],
+                      self.confs["data"]["dim"]]
+        processed = img.resize((h, w), resample=Image.BILINEAR)
+        processed = (np.array(processed) - 0) / 255.0
+        processed = processed.transpose((2, 0, 1))
+        processed = processed.reshape((n, h, w, c))
 
-		return processed
+        return processed

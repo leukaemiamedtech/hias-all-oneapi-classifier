@@ -3,6 +3,11 @@
 
 Provides data augmentation methods.
 
+MIT License
+
+Copyright (c) 2021 Asociación de Investigacion en Inteligencia Artificial
+Para la Leucemia Peter Moss
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files(the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -36,89 +41,82 @@ from scipy import ndimage
 from skimage import transform as tm
 
 class augmentation():
-	""" HIAS AI Model Data Augmentation Class
+    """ HIAS AI Model Data Augmentation Class
 
-	Provides data augmentation methods.
-	"""
+    Provides data augmentation methods.
+    """
 
-	def __init__(self, helpers):
-		""" Initializes the class. """
+    def __init__(self, helpers):
+        """ Initializes the class. """
 
-		self.helpers = helpers
+        self.helpers = helpers
 
-		self.seed = self.helpers.confs["data"]["seed"]
-		seed(self.seed)
+        self.seed = self.helpers.confs["data"]["seed"]
+        seed(self.seed)
 
-		self.helpers.logger.info("Augmentation class initialization complete.")
+        self.helpers.logger.info(
+            "Augmentation class initialization complete.")
 
-	def grayscale(self, data):
-		""" Creates a grayscale copy. """
+    def grayscale(self, data):
+        """ Creates a grayscale copy. """
 
-		gray = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
-		return np.dstack([gray, gray, gray]).astype(np.float32)/255.
+        gray = cv2.cvtColor(data, cv2.COLOR_BGR2GRAY)
+        return np.dstack([gray, gray, gray]).astype(np.float32)/255.
 
-	def equalize_hist(self, data):
-		""" Creates a histogram equalized copy.
+    def equalize_hist(self, data):
+        """ Creates a histogram equalized copy. """
 
-		Credit: Amita Kapoor & Taru Jain
-		Exploring novel convolutional network architecture to build a classification
-		system for better assistance in diagonosing Acute Lymphoblastic Leukemia in
-		blood cells.
-		https://github.com/AMLResearchProject/ALL-Keras-2019
-		"""
+        img_to_yuv = cv2.cvtColor(data, cv2.COLOR_BGR2YUV)
+        img_to_yuv[:, :, 0] = cv2.equalizeHist(img_to_yuv[:, :, 0])
+        hist_equalization_result = cv2.cvtColor(img_to_yuv, cv2.COLOR_YUV2BGR)
+        return hist_equalization_result.astype(np.float32)/255.
 
-		img_to_yuv = cv2.cvtColor(data, cv2.COLOR_BGR2YUV)
-		img_to_yuv[:, :, 0] = cv2.equalizeHist(img_to_yuv[:, :, 0])
-		hist_equalization_result = cv2.cvtColor(img_to_yuv, cv2.COLOR_YUV2BGR)
-		return hist_equalization_result.astype(np.float32)/255.
+    def reflection(self, data):
+        """ Creates a reflected copy. """
 
-	def reflection(self, data):
-		""" Creates a reflected copy. """
+        return cv2.flip(data, 0).astype(np.float32)/255., cv2.flip(data, 1).astype(np.float32)/255.
 
-		return cv2.flip(data, 0).astype(np.float32)/255., cv2.flip(data, 1).astype(np.float32)/255.
+    def gaussian(self, data):
+        """ Creates a gaussian blurred copy. """
 
-	def gaussian(self, data):
-		""" Creates a gaussian blurred copy. """
+        return ndimage.gaussian_filter(
+            data, sigma=5.11).astype(np.float32)/255.
 
-		return ndimage.gaussian_filter(data, sigma=5.11).astype(np.float32)/255.
+    def translate(self, data):
+        """ Creates transformed copy. """
 
-	def translate(self, data):
-		""" Creates transformed copy. """
+        cols, rows, chs = data.shape
 
-		cols, rows, chs = data.shape
+        return cv2.warpAffine(
+            data, np.float32([[1, 0, 84], [0, 1, 56]]), (rows, cols),
+            borderMode=cv2.BORDER_CONSTANT,
+            borderValue=(144, 159, 162)).astype(np.float32)/255.
 
-		return cv2.warpAffine(data, np.float32([[1, 0, 84], [0, 1, 56]]), (rows, cols),
-							  borderMode=cv2.BORDER_CONSTANT, borderValue=(144, 159, 162)).astype(np.float32)/255.
+    def rotation(self, data, label, tdata, tlabels):
+        """ Creates rotated copies. """
 
-	def rotation(self, data, label, tdata, tlabels):
-		""" Creates rotated copies. """
+        cols, rows, chs = data.shape
 
-		cols, rows, chs = data.shape
+        for i in range(0, self.helpers.confs["data"]["rotations"]):
+            # Seed needs to be set each time randint is called
+            random.seed(self.seed)
+            rand_deg = random.randint(-180, 180)
+            matrix = cv2.getRotationMatrix2D(
+                (cols/2, rows/2), rand_deg, 0.70)
+            rotated = cv2.warpAffine(
+                data, matrix, (rows, cols),
+                borderMode=cv2.BORDER_CONSTANT,
+                borderValue=(144, 159, 162))
 
-		for i in range(0, self.helpers.confs["data"]["rotations"]):
-			# Seed needs to be set each time randint is called
-			random.seed(self.seed)
-			rand_deg = random.randint(-180, 180)
-			matrix = cv2.getRotationMatrix2D((cols/2, rows/2), rand_deg, 0.70)
-			rotated = cv2.warpAffine(data, matrix, (rows, cols), borderMode=cv2.BORDER_CONSTANT,
-									 borderValue=(144, 159, 162))
+            rotated = rotated.astype(np.float32)/255.
 
-			rotated = rotated.astype(np.float32)/255.
+            tdata.append(rotated)
+            tlabels.append(label)
 
-			tdata.append(rotated)
-			tlabels.append(label)
+        return tdata, tlabels
 
-		return tdata, tlabels
+    def shear(self, data):
+        """ Creates a histogram equalized copy. """
 
-	def shear(self, data):
-		""" Creates a histogram equalized copy.
-
-		Credit: Amita Kapoor & Taru Jain
-		Exploring novel convolutional network architecture to build a classification
-		system for better assistance in diagonosing Acute Lymphoblastic Leukemia in
-		blood cells.
-		https://github.com/AMLResearchProject/ALL-Keras-2019
-		"""
-
-		at = tm.AffineTransform(shear=0.5)
-		return tm.warp(data, inverse_map=at)
+        at = tm.AffineTransform(shear=0.5)
+        return tm.warp(data, inverse_map=at)

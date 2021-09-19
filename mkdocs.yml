@@ -1,0 +1,11 @@
+site_name: HIAS ALL oneAPI Classifier
+site_url: https://www.leukemiaairesearch.com/research/project/peter-moss-medtech-research-project/hias-all-oneapi-classifier
+
+nav:
+    - Home: 'index.md'
+    - Installation:
+      - Installation (Ubuntu): 'installation/ubuntu.md'
+      - Installation (Raspbbery Pi): 'installation/raspberry-pi.md'
+    - Usage:
+      - Usage (Ubuntu): 'usage/ubuntu.md'
+      - Usage (Raspbbery Pi): 'usage/raspberry-pi.md'
