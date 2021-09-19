@@ -5,7 +5,7 @@
 
 [![CURRENT RELEASE](https://img.shields.io/badge/CURRENT%20RELEASE-1.1.0-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/release-1.1.0) [![UPCOMING RELEASE](https://img.shields.io/badge/DEV%20BRANCH-Develop-blue.svg)](https://github.com/AIIAL/Acute-Lymphoblastic-Leukemia-oneAPI-Classifier/tree/develop) [![Contributions Welcome!](https://img.shields.io/badge/Contributions-Welcome-lightgrey.svg)](CONTRIBUTING.md)  [![Issues](https://img.shields.io/badge/Issues-Welcome-lightgrey.svg)](issues)
 
-[![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/) [![Documentation Status](https://readthedocs.org/projects/hias-acute-lymphoblastic-leukemia-oneapi-classifier/badge/?version=latest)](https://hias-acute-lymphoblastic-leukemia-oneapi-classifier.readthedocs.io/en/latest/?badge=latest) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5226/badge)](https://bestpractices.coreinfrastructure.org/projects/5226)
+[![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/) [![Documentation Status](https://readthedocs.org/projects/hias-acute-lymphoblastic-leukemia-oneapi-classifier/badge/?version=latest)](https://hias-acute-lymphoblastic-leukemia-oneapi-classifier.readthedocs.io/en/latest/?badge=latest) [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5226/badge)](https://bestpractices.coreinfrastructure.org/projects/5226) [![CodeQL](https://github.com/aiial/hias-all-oneapi-classifier/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/aiial/hias-all-oneapi-classifier/actions/workflows/codeql-analysis.yml)
 
 [![LICENSE](https://img.shields.io/badge/LICENSE-MIT-blue.svg)](LICENSE) ![SemVer](https://img.shields.io/badge/semver-2.0.0-blue)
 
@@ -51,9 +51,6 @@ In this project, [ALL-IDB1](https://homes.di.unimi.it/scotti/all/#datasets) is u
 
 # Intel® Technologies
 
-## Intel® oneAPI Toolkits (Beta)
-[Intel® oneAPI Toolkits](https://software.intel.com/content/www/us/en/develop/tools/oneapi.html) are a collection of toolkits that provide the tools to optimize training and running inference on Artificial Intelligence models, maximizing the use of Intel architecture, including CPU, GPU, VPU and FPGA.
-
 ## Intel® Distribution for Python
 [Intel® Distribution for Python](https://software.intel.com/content/www/us/en/develop/tools/distribution-for-python.html) enhances standard Python and helps to speed up popular AI packages such as Numpy, SciPy and Scikit-Learn.
 
@@ -86,7 +83,7 @@ To create the newly improved **Acute Lymphoblastic Leukemia oneAPI Classifier** 
 
 # GETTING STARTED
 
-Ready to get started ? Head over to the [Getting Started guide](documentation/getting-started.md) for instructions on how to download/install and setup the Acute Lymphoblastic Leukemia oneAPI Classifier 2021.
+Head over to the [official documentation](https://hias-acute-lymphoblastic-leukemia-oneapi-classifier.readthedocs.io/en/latest/?badge=latest) for instructions on how to download/install and setup the HIAS Acute Lymphoblastic Leukemia oneAPI Classifier.
 
 &nbsp;
 
