@@ -12,7 +12,7 @@
 				</port>
 			</output>
 		</layer>
-		<layer id="1" name="x/reverse_input_channels/Concat797_const" type="Const" version="opset1">
+		<layer id="1" name="x/reverse_input_channels/Concat821_const" type="Const" version="opset1">
 			<data element_type="f32" offset="0" shape="30,3,5,5" size="9000"/>
 			<output>
 				<port id="1" precision="FP32">
@@ -209,7 +209,7 @@
 				</port>
 			</output>
 		</layer>
-		<layer id="12" name="AllOneApiClassifier/max_pooling2d/MaxPool/Transpose/Cast_1859_const" type="Const" version="opset1">
+		<layer id="12" name="AllOneApiClassifier/max_pooling2d/MaxPool/Transpose/Cast_1883_const" type="Const" version="opset1">
 			<data element_type="i64" offset="99240" shape="4" size="32"/>
 			<output>
 				<port id="1" precision="I64">
@@ -238,7 +238,7 @@
 				</port>
 			</output>
 		</layer>
-		<layer id="14" name="AllOneApiClassifier/dense/MatMul/ReadVariableOp/MinusOne615_const" type="Const" version="opset1">
+		<layer id="14" name="AllOneApiClassifier/dense/MatMul/ReadVariableOp/MinusOne639_const" type="Const" version="opset1">
 			<data element_type="i64" offset="99272" shape="1" size="8"/>
 			<output>
 				<port id="1" precision="I64">
@@ -246,7 +246,7 @@
 				</port>
 			</output>
 		</layer>
-		<layer id="15" name="AllOneApiClassifier/dense/MatMul/1_port_transpose597_const" type="Const" version="opset1">
+		<layer id="15" name="AllOneApiClassifier/dense/MatMul/1_port_transpose621_const" type="Const" version="opset1">
 			<data element_type="f32" offset="99280" shape="2,75000" size="600000"/>
 			<output>
 				<port id="1" precision="FP32">
@@ -269,7 +269,7 @@
 				</port>
 			</output>
 		</layer>
-		<layer id="17" name="AllOneApiClassifier/dense/MatMul/ReadVariableOp/Shape/Gather/Cast_1861_const" type="Const" version="opset1">
+		<layer id="17" name="AllOneApiClassifier/dense/MatMul/ReadVariableOp/Shape/Gather/Cast_1885_const" type="Const" version="opset1">
 			<data element_type="i32" offset="699280" shape="1" size="4"/>
 			<output>
 				<port id="1" precision="I32">
@@ -277,7 +277,7 @@
 				</port>
 			</output>
 		</layer>
-		<layer id="18" name="AllOneApiClassifier/dense/MatMul/ReadVariableOp/Shape/Gather/Cast_2863_const" type="Const" version="opset1">
+		<layer id="18" name="AllOneApiClassifier/dense/MatMul/ReadVariableOp/Shape/Gather/Cast_2887_const" type="Const" version="opset1">
 			<data element_type="i64" offset="699284" shape="" size="8"/>
 			<output>
 				<port id="1" precision="I64"/>
@@ -316,7 +316,7 @@
 			</output>
 		</layer>
 		<layer id="21" name="AllOneApiClassifier/flatten/Reshape" type="Reshape" version="opset1">
-			<data special_zero="False"/>
+			<data special_zero="True"/>
 			<input>
 				<port id="0">
 					<dim>1</dim>

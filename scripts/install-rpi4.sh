@@ -1,13 +1,12 @@
 #!/bin/bash
 
-FMSG="- Acute Lymphoblastic Leukemia oneAPI Classifier installation terminated"
+FMSG="HIAS ALL oneAPI Classifier installation terminated!"
 
-read -p "? This script will install the required Python libraries. Are you ready (y/n)? " cmsg
+printf -- 'This script will install HIAS ALL oneAPI Classifier on your Raspberry Pi.\n';
+printf -- '\033[33m WARNING: This is an inteteractive installation, please follow instructions provided. \033[0m\n';
 
-if [ "$cmsg" = "Y" -o "$cmsg" = "y" ]; then
-
-    echo "- Installing required Python libraries"
-
+read -p "Proceed (y/n)? " proceed
+if [ "$proceed" = "Y" -o "$proceed" = "y" ]; then
     sudo apt update
     sudo apt upgrade
     sudo apt install -y libgtk-3-dev
@@ -26,10 +25,8 @@ if [ "$cmsg" = "Y" -o "$cmsg" = "y" ]; then
     sudo pip3 install jsonpickle
     sudo pip3 install paho-mqtt
     sudo pip3 install pybind11
-    #wget https://github.com/Qengineering/Tensorflow-Raspberry-Pi/raw/master/tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl
-    #sudo -H pip3 install tensorflow-2.1.0-cp37-cp37m-linux_armv7l.whl
-
+    printf -- '\033[32m SUCCESS: Congratulations! HIAS ALL oneAPI Classifier installed successfully! \033[0m\n';
 else
     echo $FMSG;
-    exit
+    exit 1
 fi
