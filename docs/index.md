@@ -35,7 +35,7 @@ Use the following installation guides to set up your project.:
 
 # Usage
 
-Use the following usage guides to to train your classifier and use your classifier on Arduino:
+Use the following usage guides to to train your classifier and use your classifier:
 
 - [Ubuntu Usage Guide](usage/ubuntu.md)
 - [Raspberry Pi 4 Usage Guide](usage/raspberry-pi.md)
