@@ -18,8 +18,8 @@ For this project you will need a functioning [HIAS Core](https://github.com/aiia
 
 &nbsp;
 
-# Intel® oneAPI Basekit
-First you will install Intel® OneAPI basekit:
+# Intel® OneAPI MKL
+First you will install Intel® OneAPI Math Kernal Lirary:
 
 ``` bash
 conda create -n hias-all-oneapi-classifier python=3
